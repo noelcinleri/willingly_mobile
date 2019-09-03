@@ -9,6 +9,7 @@ class FirstLogin extends StatefulWidget {
 class _firstLoginState extends State<FirstLogin> {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: primaryColor),
     );
@@ -136,6 +137,10 @@ class _firstLoginState extends State<FirstLogin> {
           ],
         ),
       ),
+=======
+    return Container(
+       
+>>>>>>> f710735dde38b39a4d1277cdc0bf4ec3b52e5005
     );
   }
 }
