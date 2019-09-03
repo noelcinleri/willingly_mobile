@@ -3,6 +3,7 @@ import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter/services.dart';
+import 'package:willingly/json.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: primaryColor),
     );
-    final pageTitle = Column(
+    Widget pageTitle = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
@@ -40,7 +43,8 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
 
-    final emailField = TextFormField(
+    Widget emailField = TextFormField(
+      controller: mailController,
       decoration: InputDecoration(
         labelText: 'E-Posta Adresi',
         labelStyle: TextStyle(color: Colors.white),
@@ -60,7 +64,8 @@ class _LoginPageState extends State<LoginPage> {
       cursorColor: Colors.white,
     );
 
-    final passwordField = TextFormField(
+    Widget passwordField = TextFormField(
+      controller: passController,
       decoration: InputDecoration(
         labelText: 'Parola',
         labelStyle: TextStyle(color: Colors.white),
@@ -81,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: true,
     );
 
-    final loginForm = Padding(
+    Widget loginForm = Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: Form(
         key: _formKey,
@@ -90,8 +95,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
-    final loginBtn = Container(
+    var value;
+    Widget loginBtn = Container(
       margin: EdgeInsets.only(top: 40.0),
       height: 60.0,
       width: MediaQuery.of(context).size.width,
@@ -102,7 +107,12 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () =>  Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute, (Route<dynamic> route) => false),
+        onPressed: (){
+          setState(() {
+            value = LoginCheck(post: fetchPost(mailController.text,passController.text),);
+          });
+        },
+        // onPressed: () =>  Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute, (Route<dynamic> route) => false),
         color: Colors.white,
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(7.0),
@@ -117,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    final forgotPassword = Padding(
+    Widget forgotPassword = Padding(
       padding: EdgeInsets.only(top: 50.0),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, resetPasswordViewRoute),
@@ -134,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    final newUser = Padding(
+    Widget newUser = Padding(
       padding: EdgeInsets.only(top: 20.0),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, registerViewRoute),
@@ -176,7 +186,8 @@ class _LoginPageState extends State<LoginPage> {
               loginForm,
               loginBtn,
               forgotPassword,
-              newUser
+              newUser,
+              value !=null ? Text('girdila $value'): Text('daha boş')
             ],
           ),
         ),

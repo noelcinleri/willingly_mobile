@@ -4,7 +4,14 @@ import 'package:willingly/app/utils/colors.dart';
 import 'package:willingly/app/utils/utils.dart';
 import 'package:flutter/services.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
+  LandingPage({Key key}) : super(key: key);
+
+  _LandingPageState createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+
   @override
   Widget build(BuildContext context) {
     // Change Status Bar Color
@@ -48,7 +55,7 @@ class LandingPage extends StatelessWidget {
       ],
     );
 
-    final loginBtn = InkWell(
+    Widget loginBtn = GestureDetector(
       onTap: () => Navigator.pushNamed(context, loginViewRoute),
       child: Container(
         height: 60.0,

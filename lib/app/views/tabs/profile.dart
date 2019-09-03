@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
@@ -111,7 +112,8 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               _buildIconTile(LineIcons.user, Colors.red, 'Profilim',
-                  () => {print('yaye!')}),
+                  () => { Navigator.pushNamed(context, userDetailsViewRoute,
+            arguments: 1),}),
               hr,
               _buildIconTile(LineIcons.shopping_cart, Colors.green,
                   'Aldıklarım', () => {}),

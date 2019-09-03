@@ -5,18 +5,27 @@ import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 
-class UserDetailsPage extends StatelessWidget {
+class UserDetailsPage extends StatefulWidget {
   final int userId;
 
   const UserDetailsPage({Key key, this.userId}) : super(key: key);
+  // UserDetailsPage({Key key}) : super(key: key);
+  _UserDetailsPageState createState() => _UserDetailsPageState();
+}
+
+class _UserDetailsPageState extends State<UserDetailsPage> {
+  
+  static int userId ;
+
   @override
   Widget build(BuildContext context) {
+    userId = widget.userId;
     final User user = users.singleWhere((user) => user.id == userId);
 
     // final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    final cancelBtn = Positioned(
+    Widget cancelBtn = Positioned(
       top: 50.0,
       left: 20.0,
       child: Container(
@@ -34,7 +43,7 @@ class UserDetailsPage extends StatelessWidget {
       ),
     );
 
-    final userImage = Stack(
+    Widget userImage = Stack(
       children: <Widget>[
         Hero(
           tag: user.photo,
@@ -53,7 +62,7 @@ class UserDetailsPage extends StatelessWidget {
       ],
     );
 
-    final userName = Container(
+    Widget userName = Container(
         padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
         child: Row(
           children: <Widget>[
@@ -79,7 +88,7 @@ class UserDetailsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Icon(
-                      user.gender == 'M' ? LineIcons.mars : LineIcons.venus,
+                      LineIcons.star,
                       color: Colors.white,
                     ),
                     Text(
@@ -97,7 +106,7 @@ class UserDetailsPage extends StatelessWidget {
           ],
         ));
 
-    final userLocation = Container(
+    Widget userLocation = Container(
       padding: EdgeInsets.only(left: 20.0, right: 20.0),
       child: Text(
         user.location,
@@ -109,7 +118,7 @@ class UserDetailsPage extends StatelessWidget {
       ),
     );
 
-    final aboutUser = Padding(
+    Widget aboutUser = Padding(
       padding: EdgeInsets.all(20.0),
       child: Material(
         elevation: 5.0,
@@ -141,7 +150,7 @@ class UserDetailsPage extends StatelessWidget {
                 height: 2.0,
               ),
               Text(
-                "My name is ${user.name} and i love meeting new people and making new friends. I love sports, reading, hiking and partying. Don't be reluctant to hit me up.",
+                user.about.toString(),
                 style: TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.w600,
@@ -154,7 +163,7 @@ class UserDetailsPage extends StatelessWidget {
       ),
     );
 
-    final hobbies = Padding(
+    Widget hobbies = Padding(
       padding: EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
       child: Material(
         elevation: 5.0,
