@@ -45,6 +45,7 @@ class ChatsPage extends StatelessWidget {
           ),
         ),
       ),
+      
     );
 
     // final onlineUsersHeading = Text(
