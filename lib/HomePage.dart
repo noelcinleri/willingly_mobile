@@ -16,22 +16,25 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
   Future<Widget> query()async{
-    var results = await connection.query("SELECT a, b FROM table WHERE a = @aValue", substitutionValues: {
-    "aValue" : 3
-    });
-    var a;
-    var b;
-    for (final row in results) {
-      a = row[0];
-      b = row[1];
-    } 
+    var results = await connection.query("SELECT * FROM public.\"AA\" WHERE \"Id\" = '0'");
     
-    return Text('');
+    return Text('$results',style:TextStyle(color:Colors.green));
   }
   @override
   Widget build(BuildContext context) {
-    
-    return Container(
-    );
+    Text s ;
+    query().then((e){
+      s= e;
+      });
+    if(s == null){
+      return Container(
+        child: Text('Bekle Data Geliyor'),
+      );
+    }
+    else{
+      return Container(
+        child: s,
+      );
+    }
   }
 }
