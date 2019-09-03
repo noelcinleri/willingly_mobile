@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:postgres/postgres.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
