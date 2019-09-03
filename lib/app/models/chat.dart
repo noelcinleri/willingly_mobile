@@ -9,8 +9,11 @@ class Chat {
 }
 
 List<Chat> chats = [
+  //Kullanicinin session id si ile mesajlar datasini cek
+  //ardindan buraya listele
+  
   Chat(1, users[1].id, users[1].name, users[1].photo, 3, "Hey! How's it going?"),
-  Chat(2, users[2].id, users[2].name, users[2].photo, 1, "What kind of music do you like?"),
-  Chat(3, users[3].id, users[3].name, users[3].photo, 0, "Sound good to me."),
-  Chat(4, users[4].id, users[4].name, users[4].photo, 0, "Sure, see you on Saturday."),
+  // Chat(2, users[2].id, users[2].name, users[2].photo, 1, "What kind of music do you like?"),
+  // Chat(3, users[3].id, users[3].name, users[3].photo, 0, "Sound good to me."),
+  // Chat(4, users[4].id, users[4].name, users[4].photo, 0, "Sure, see you on Saturday."),
 ];
