@@ -31,7 +31,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Reset Password",
+        "Hemen Sana Yardım Edelim!",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.white,
@@ -42,7 +42,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
     final emailField = TextFormField(
       decoration: InputDecoration(
-        labelText: 'Email Address',
+        labelText: 'E-Posta Adresin',
         labelStyle: TextStyle(color: Colors.white),
         prefixIcon: Icon(
           LineIcons.envelope,
@@ -87,7 +87,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           borderRadius: new BorderRadius.circular(7.0),
         ),
         child: Text(
-          'RESET',
+          'ŞİFREMİ SIFIRLA',
           style: TextStyle(
             fontWeight: FontWeight.w800,
             fontSize: 20.0,
@@ -104,7 +104,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Or',
+              'veya',
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 18.0,
@@ -112,7 +112,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ),
             ),
             Text(
-              ' Create new account',
+              ' Yeni Hesap Oluştur',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,

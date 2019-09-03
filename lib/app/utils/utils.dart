@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppConfig {
-  static const appName = "Heart String";
-  static const appTagline = "Find your perfect match";
+  static const appName = "Willingly";
+  static const appTagline = "Hemen hesabını oluşturarak yardım etmeye başlayabilirsin.";
 }
 
 class AvailableFonts {

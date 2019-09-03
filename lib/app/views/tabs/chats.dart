@@ -13,7 +13,7 @@ class ChatsPage extends StatelessWidget {
     final pageTitle = Padding(
       padding: EdgeInsets.only(top: 1.0, bottom: 20.0),
       child: Text(
-        "Chats",
+        "Mesajlar",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -38,7 +38,7 @@ class ChatsPage extends StatelessWidget {
             color: Colors.grey,
           ),
           contentPadding: EdgeInsets.only(top: 15.0),
-          hintText: 'Search...',
+          hintText: 'Ara...',
           hintStyle: TextStyle(
             color: Colors.grey.withOpacity(0.6),
             fontWeight: FontWeight.w600,
@@ -48,7 +48,7 @@ class ChatsPage extends StatelessWidget {
     );
 
     final onlineUsersHeading = Text(
-      "ONLINE USERS",
+      "AKTİF KULLANICILAR",
       style: TextStyle(
         color: Colors.grey.withOpacity(0.6),
         fontWeight: FontWeight.w600,

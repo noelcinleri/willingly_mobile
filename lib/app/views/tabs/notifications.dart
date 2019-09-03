@@ -10,7 +10,7 @@ class NotificationsPage extends StatelessWidget {
     final pageTitle = Padding(
       padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
       child: Text(
-        "Notifications",
+        "Bildirimler",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -26,12 +26,12 @@ class NotificationsPage extends StatelessWidget {
     final notificationHeader = Container(
       padding: EdgeInsets.only(top: 30.0, bottom: 10.0),
       child: Text(
-        "No New Notification",
+        "Yeni bir bildiriminiz yok!",
         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24.0),
       ),
     );
     final notificationText = Text(
-      "You currently do not have any unread notifications.",
+      "Şu an okunacak bir bildiriminiz yok.",
       style: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 18.0,

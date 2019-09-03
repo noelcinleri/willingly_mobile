@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Log In.",
+          "Giriş Yap.",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Text(
-          "We missed you!",
+          "Seni Özledik!",
           style: TextStyle(
             color: Colors.white,
             fontSize: 18.0,
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final emailField = TextFormField(
       decoration: InputDecoration(
-        labelText: 'Email Address',
+        labelText: 'E-Posta Adresi',
         labelStyle: TextStyle(color: Colors.white),
         prefixIcon: Icon(
           LineIcons.envelope,
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final passwordField = TextFormField(
       decoration: InputDecoration(
-        labelText: 'Password',
+        labelText: 'Parola',
         labelStyle: TextStyle(color: Colors.white),
         prefixIcon: Icon(
           LineIcons.lock,
@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: new BorderRadius.circular(7.0),
         ),
         child: Text(
-          'SIGN IN',
+          'GİRİŞ YAP',
           style: TextStyle(
             fontWeight: FontWeight.w800,
             fontSize: 20.0,
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
         onTap: () => Navigator.pushNamed(context, resetPasswordViewRoute),
         child: Center(
           child: Text(
-            'Forgot Password?',
+            'Şifreni mi unuttun?',
             style: TextStyle(
               color: Colors.white70,
               fontSize: 18.0,
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'New User?',
+              'Yeni misin buralarda?',
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 18.0,
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Text(
-              ' Create account',
+              'Hesap Oluştur',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,

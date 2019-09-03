@@ -76,7 +76,7 @@ class ChatDetailsPage extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Type a message...',
+          hintText: 'Bir mesaj yaz...',
           hintStyle: TextStyle(
             color: Colors.grey.withOpacity(0.6),
             fontWeight: FontWeight.w600,

@@ -11,7 +11,7 @@ class FeedsPage extends StatelessWidget {
     final pageTitle = Padding(
       padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
       child: Text(
-        "Feed",
+        "Haberler",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,

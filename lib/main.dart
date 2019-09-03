@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:willingly/HomePage.dart';
 import 'package:willingly/app/app.dart';
 
 void main() => runApp(MyApp());

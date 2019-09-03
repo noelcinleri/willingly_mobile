@@ -130,7 +130,7 @@ class UserDetailsPage extends StatelessWidget {
                 height: 5.0,
               ),
               Text(
-                "ABOUT ME",
+                "Hakkımda",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18.0,
@@ -175,7 +175,7 @@ class UserDetailsPage extends StatelessWidget {
                 height: 5.0,
               ),
               Text(
-                "HOBBIES",
+                "Yeteneklerim",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18.0,

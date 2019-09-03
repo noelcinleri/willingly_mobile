@@ -56,7 +56,7 @@ class LandingPage extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'LOG IN',
+            'GİRİŞ YAP',
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 20.0,
@@ -83,7 +83,7 @@ class LandingPage extends StatelessWidget {
           borderRadius: new BorderRadius.circular(7.0),
         ),
         child: Text(
-          'SIGN UP',
+          'KAYIT OL',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 20.0,

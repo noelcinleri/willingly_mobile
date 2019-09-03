@@ -102,18 +102,22 @@ class ProfilePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         shadowColor: Colors.white,
         child: Container(
-          height: 200.0,
+          height: 344.0,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(Icons.favorite, Colors.red, 'Likes'),
+              _buildIconTile(Icons.favorite, Colors.red, 'Profilim'),
               hr,
-              _buildIconTile(LineIcons.eye, Colors.green, 'Visitors'),
+              _buildIconTile(LineIcons.eye, Colors.green, 'Aldıklarım'),
               hr,
-              _buildIconTile(LineIcons.users, Colors.purpleAccent, 'Groups'),
+              _buildIconTile(LineIcons.users, Colors.purpleAccent, 'Özel İsteklerim'),
+              hr,
+              _buildIconTile(LineIcons.users, Colors.purpleAccent, 'Destek'),
+              hr,
+              _buildIconTile(LineIcons.users, Colors.purpleAccent, 'Ayarlar'),
             ],
           ),
         ),
@@ -127,22 +131,18 @@ class ProfilePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         shadowColor: Colors.white,
         child: Container(
-          height: 350.0,
+          height: 200.0,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(LineIcons.money, Colors.red, 'My Wallet'),
+              _buildIconTile(LineIcons.money, Colors.red, 'Satışlerim'),
               hr,
-              _buildIconTile(LineIcons.diamond, Colors.blue, 'VIP Center'),
+              _buildIconTile(LineIcons.diamond, Colors.blue, 'İş İlanlarım'),
               hr,
-              _buildIconTile(LineIcons.user_plus, Colors.orangeAccent, 'Find Friends'),
-              hr,
-              _buildIconTile(LineIcons.user_times, Colors.black, 'Blacklist'),
-              hr,
-              _buildIconTile(LineIcons.cogs, Colors.grey.withOpacity(0.6), 'Settings'),
+              _buildIconTile(LineIcons.user_plus, Colors.orangeAccent, 'Alıcı İstekleri'),
             ],
           ),
         ),

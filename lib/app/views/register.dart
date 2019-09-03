@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell us about you.",
+        "Biraz bize kendini anlat.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -57,13 +57,15 @@ class _RegisterPageState extends State<RegisterPage> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            _buildFormField('Name', LineIcons.user),
+            _buildFormField('Adın', LineIcons.user),
             formFieldSpacing,
-            _buildFormField('Email Address', LineIcons.envelope),
+            _buildFormField('Soyadın', LineIcons.user),
             formFieldSpacing,
-            _buildFormField('Phone Number', LineIcons.mobile_phone),
+            _buildFormField('E-Posta Adresi', LineIcons.envelope),
             formFieldSpacing,
-            _buildFormField('Password', LineIcons.lock),
+            _buildFormField('Telefon Numarası', LineIcons.mobile_phone),
+            formFieldSpacing,
+            _buildFormField('Parola', LineIcons.lock),
             formFieldSpacing,
           ],
         ),
@@ -79,19 +81,19 @@ class _RegisterPageState extends State<RegisterPage> {
             groupValue: _genderRadioBtnVal,
             onChanged: _handleGenderChange,
           ),
-          Text("Male"),
+          Text("Erkek"),
           Radio(
             value: 1,
             groupValue: _genderRadioBtnVal,
             onChanged: _handleGenderChange,
           ),
-          Text("Female"),
+          Text("Kadın"),
           Radio(
             value: 2,
             groupValue: _genderRadioBtnVal,
             onChanged: _handleGenderChange,
           ),
-          Text("Other"),
+          Text("Diğer"),
         ],
       ),
     );
@@ -114,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: MaterialButton(
             onPressed: () => Navigator.of(context).pushNamed(homeViewRoute),
             child: Text(
-              'CREATE ACCOUNT',
+              'ARAMIZA KATIL',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 20.0,
