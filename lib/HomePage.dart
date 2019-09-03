@@ -8,33 +8,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var connection = new PostgreSQLConnection("212.125.24.97", 5432, "Willingly", username: "WillinglyUser", password: "ok");
-  //pgsql:host=212.125.24.97;port=5432;dbname=Willingly;user=WillinglyUser;password=ok
   @override
   void initState() {
-    connection.open();
     super.initState();
   }
-  Future<Widget> query()async{
-    var results = await connection.query("SELECT * FROM public.\"AA\" WHERE \"Id\" = '0'");
-    
-    return Text('$results',style:TextStyle(color:Colors.green));
-  }
+
   @override
   Widget build(BuildContext context) {
-    Text s ;
-    query().then((e){
-      s= e;
-      });
-    if(s == null){
-      return Container(
-        child: Text('Bekle Data Geliyor'),
-      );
-    }
-    else{
-      return Container(
-        child: s,
-      );
-    }
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.search),
+          onPressed: () {},
+        ),
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          notchMargin: 4.0,
+          child: new Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
