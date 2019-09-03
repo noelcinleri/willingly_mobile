@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
   final User user = users[0];
-
+  
   @override
   Widget build(BuildContext context) {
     final hr = Divider();
@@ -109,13 +110,13 @@ class ProfilePage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(LineIcons.user, Colors.red, 'Profilim',()=>{}),
+              _buildIconTile(LineIcons.user, Colors.red, 'Profilim',()=>{print('yaye!')}),
               hr,
               _buildIconTile(LineIcons.shopping_cart, Colors.green, 'Aldıklarım',()=>{}),
               hr,
               _buildIconTile(LineIcons.star, Colors.purpleAccent, 'Özel İsteklerim',()=>{}),
               hr,
-              _buildIconTile(LineIcons.question, Colors.blue, 'Destek',()=>{}),
+              _buildIconTile(LineIcons.question, Colors.blue, 'Destek',(){_launchURL();}),
               hr,
               _buildIconTile(LineIcons.gear, Colors.amber, 'Ayarlar',()=>{}),
             ],
@@ -225,4 +226,13 @@ class ProfilePage extends StatelessWidget {
     ),
     );
   }
+
+  _launchURL() async {
+  const url = 'https://willingly.tk';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 }
