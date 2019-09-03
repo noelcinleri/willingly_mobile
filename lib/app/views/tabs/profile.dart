@@ -17,9 +17,9 @@ class ProfilePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildUserStats('VISITORS', '2305'),
-          _buildUserStats('LIKED', '276'),
-          _buildUserStats('MATCHED', '51'),
+          _buildUserStats('VISITORS', ''),
+          _buildUserStats('LIKED', ''),
+          _buildUserStats('MATCHED', ''),
         ],
       ),
     );
