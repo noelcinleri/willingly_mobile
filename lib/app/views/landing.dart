@@ -131,7 +131,7 @@ class LandingPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AvailableImages.homePage,
-                      fit: BoxFit.scaleDown,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
