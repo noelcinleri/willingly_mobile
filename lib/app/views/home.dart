@@ -15,8 +15,8 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
     FeedsPage(),
+    CategoriesPage(),
     ChatsPage(),
-    NotificationsPage(),
     ProfilePage()
   ];
 
@@ -44,16 +44,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.comments),
+          icon: Icon(LineIcons.search),
           title: Text(
-            'Mesajlar',
+            'Kategoriler',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.bell),
+          icon: Icon(LineIcons.comments),
           title: Text(
-            'Bildirimler',
+            'Mesajlar',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

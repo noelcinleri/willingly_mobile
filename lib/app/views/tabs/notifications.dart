@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:willingly/app/utils/utils.dart';
 
-class NotificationsPage extends StatelessWidget {
+class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
