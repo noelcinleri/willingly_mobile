@@ -47,36 +47,36 @@ class ChatsPage extends StatelessWidget {
       ),
     );
 
-    final onlineUsersHeading = Text(
-      "AKTİF KULLANICILAR",
-      style: TextStyle(
-        color: Colors.grey.withOpacity(0.6),
-        fontWeight: FontWeight.w600,
-        fontSize: 20.0,
-      ),
-    );
+    // final onlineUsersHeading = Text(
+    //   "AKTİF KULLANICILAR",
+    //   style: TextStyle(
+    //     color: Colors.grey.withOpacity(0.6),
+    //     fontWeight: FontWeight.w600,
+    //     fontSize: 20.0,
+    //   ),
+    // );
 
-    final listOfOnlineUsers = Container(
-      height: 100.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: users.map((user) => _buildUserCard(user, context)).toList(),
-      ),
-    );
+    // final listOfOnlineUsers = Container(
+    //   height: 100.0,
+    //   child: ListView(
+    //     scrollDirection: Axis.horizontal,
+    //     children: users.map((user) => _buildUserCard(user, context)).toList(),
+    //   ),
+    // );
 
-    final onlineUsers = Container(
-      margin: EdgeInsets.only(top: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          onlineUsersHeading,
-          SizedBox(
-            height: 10.0,
-          ),
-          listOfOnlineUsers
-        ],
-      ),
-    );
+    // final onlineUsers = Container(
+    //   margin: EdgeInsets.only(top: 20.0),
+    //   child: Column(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: <Widget>[
+    //       onlineUsersHeading,
+    //       SizedBox(
+    //         height: 10.0,
+    //       ),
+    //       listOfOnlineUsers
+    //     ],
+    //   ),
+    // );
 
     final chatList = Container(
       height: 500.0,
@@ -99,8 +99,8 @@ class ChatsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
-                    searchBar,
-                    onlineUsers,
+                    // searchBar,
+                    // onlineUsers,
                     chatList
                   ],
                 ),
