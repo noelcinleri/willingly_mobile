@@ -54,8 +54,14 @@ class CategoriesPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(height: 200,
-            child: searchField,),hr,
+            Container(
+              height: 70,
+              child: searchField,
+            ),
+            _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
+            _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
+            _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
+
           ],
         ),
       ),
@@ -84,7 +90,6 @@ class CategoriesPage extends StatelessWidget {
   
 
   Widget searchField = TextField(
-    
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         icon: Icon(Icons.search,color: Colors.black,),
