@@ -13,12 +13,12 @@ class LandingPage extends StatelessWidget {
     );
 
     final logo = Container(
-      height: 100.0,
-      width: 100.0,
+      height: 120.0,
+      width: 120.0,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AvailableImages.appLogo,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );
@@ -126,12 +126,12 @@ class LandingPage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(left:(MediaQuery.of(context).size.width*1.5/8)),
                 child: Container(
-                  height: 200.0,
+                  height: 150.0,
                   width: MediaQuery.of(context).size.width*5/8,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AvailableImages.homePage,
-                      fit: BoxFit.scaleDown,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
