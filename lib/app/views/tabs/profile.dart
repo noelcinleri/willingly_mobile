@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
   final User user = users[0];
-  
+
   @override
   Widget build(BuildContext context) {
     final hr = Divider();
@@ -110,15 +110,20 @@ class ProfilePage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(LineIcons.user, Colors.red, 'Profilim',()=>{print('yaye!')}),
+              _buildIconTile(LineIcons.user, Colors.red, 'Profilim',
+                  () => {print('yaye!')}),
               hr,
-              _buildIconTile(LineIcons.shopping_cart, Colors.green, 'Aldıklarım',()=>{}),
+              _buildIconTile(LineIcons.shopping_cart, Colors.green,
+                  'Aldıklarım', () => {}),
               hr,
-              _buildIconTile(LineIcons.star, Colors.purpleAccent, 'Özel İsteklerim',()=>{}),
+              _buildIconTile(LineIcons.star, Colors.purpleAccent,
+                  'Özel İsteklerim', () => {}),
               hr,
-              _buildIconTile(LineIcons.question, Colors.blue, 'Destek',(){_launchURL();}),
+              _buildIconTile(LineIcons.question, Colors.blue, 'Destek', () {
+                _launchURL();
+              }),
               hr,
-              _buildIconTile(LineIcons.gear, Colors.amber, 'Ayarlar',()=>{}),
+              _buildIconTile(LineIcons.gear, Colors.amber, 'Ayarlar', () => {}),
             ],
           ),
         ),
@@ -126,7 +131,7 @@ class ProfilePage extends StatelessWidget {
     );
 
     final thirdCard = Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 30.0),
+      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
       child: Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(8.0),
@@ -139,19 +144,14 @@ class ProfilePage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(LineIcons.money, Colors.red, 'Satışlerim',()=>{}),
+              _buildIconTile(
+                  LineIcons.money, Colors.red, 'Satışlerim', () => {}),
               hr,
-              _buildIconTile(LineIcons.briefcase, Colors.blue, 'İş İlanlarım',()=>{}),
+              _buildIconTile(
+                  LineIcons.briefcase, Colors.blue, 'İş İlanlarım', () => {}),
               hr,
-              _buildIconTile(LineIcons.clock_o, Colors.orangeAccent, 'Alıcı İstekleri',()=>{}),hr,
-              FlatButton(
-                onPressed: (){
-                  print('Çıkış yap Tuşuna Tıklandı');
-                },
-                color: Colors.red,
-                padding: EdgeInsets.all(4),
-                child: Text('ÇIKIŞ YAP'),
-              ),
+              _buildIconTile(LineIcons.clock_o, Colors.orangeAccent,
+                  'Alıcı İstekleri', () => {})
             ],
           ),
         ),
@@ -178,7 +178,25 @@ class ProfilePage extends StatelessWidget {
                       Positioned(top: 100, right: 0, left: 0, child: userInfo)
                     ],
                   ),
-                  secondCard, thirdCard
+                  secondCard,
+                  thirdCard,
+                  Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0)),
+                      onPressed: () {
+                        print('Çıkış yap Tuşuna Tıklandı');
+                      },
+                      color: Colors.red,
+                      padding: EdgeInsets.all(4),
+                      child: Text('ÇIKIŞ YAP',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -211,36 +229,40 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildIconTile(IconData icon, Color color, String title,Function ontap) {
+  Widget _buildIconTile(
+      IconData icon, Color color, String title, Function ontap) {
     return GestureDetector(
       onTap: ontap,
       child: ListTile(
-      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
-      leading: Container(
-        height: 30.0,
-        width: 30.0,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10.0),
+        title: Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        child: Center(
-          child: Icon(
-            icon,
-            color: Colors.white,
+        leading: Container(
+          height: 30.0,
+          width: 30.0,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Center(
+            child: Icon(
+              icon,
+              color: Colors.white,
+            ),
           ),
         ),
+        trailing: Icon(LineIcons.chevron_circle_right),
       ),
-      trailing: Icon(LineIcons.chevron_circle_right),
-    ),
     );
   }
 
   _launchURL() async {
-  const url = 'https://willingly.tk';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+    const url = 'https://willingly.tk';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 }
