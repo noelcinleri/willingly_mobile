@@ -62,6 +62,11 @@ class AvailableImages {
     'assetPath' : 'assets/images/woman5.jpg',
   };
 
+  static const emptyProfilePicture ={
+    'assetImage' : AssetImage('assets/images/blank-profile-picture.png'),
+    'assetPath' : 'assets/images/blank-profile-picture.png',  
+  };
+
   static const postBanner = {
     'assetImage' : AssetImage('assets/images/post_banner.jpg'),
     'assetPath' : 'assets/images/post_banner.jpg',

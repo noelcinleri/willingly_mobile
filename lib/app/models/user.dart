@@ -4,7 +4,7 @@ class User {
   int id;
   String name;
   String photo;
-  String location = 'Seattle, USA.';
+  String location = 'Istanbul, Turkiye';
   String gender;
   int age;
 
@@ -14,7 +14,7 @@ class User {
 
 // Names generated at http://random-name-generator.info/
 final List<User> users = [
-  User(1, 'Matt Maxwell', AvailableImages.man1['assetPath'], 'M', 27),
+  User(1, 'Umut YILDIRIM', AvailableImages.emptyProfilePicture['assetPath'], 'M', 27),
   User(2, 'Maria Perez', AvailableImages.woman1['assetPath'], 'F', 24),
   User(3, 'Craig Jordan', AvailableImages.man2['assetPath'], 'M', 28),
   User(4, 'Charlotte Mckenzie', AvailableImages.woman2['assetPath'], 'F', 23),
