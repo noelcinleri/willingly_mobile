@@ -143,7 +143,15 @@ class ProfilePage extends StatelessWidget {
               hr,
               _buildIconTile(LineIcons.briefcase, Colors.blue, 'İş İlanlarım',()=>{}),
               hr,
-              _buildIconTile(LineIcons.clock_o, Colors.orangeAccent, 'Alıcı İstekleri',()=>{}),
+              _buildIconTile(LineIcons.clock_o, Colors.orangeAccent, 'Alıcı İstekleri',()=>{}),hr,
+              FlatButton(
+                onPressed: (){
+                  print('Çıkış yap Tuşuna Tıklandı');
+                },
+                color: Colors.red,
+                padding: EdgeInsets.all(4),
+                child: Text('ÇIKIŞ YAP'),
+              ),
             ],
           ),
         ),
