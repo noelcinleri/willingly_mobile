@@ -202,10 +202,16 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildIconTile(IconData icon, Color color, String title) {
+  Widget _buildIconTile(IconData icon, Color color, String title,Function ontap) {
     return ListTile(
-      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
-      leading: Container(
+      
+      title: GestureDetector(
+        onTap: ontap,
+        child: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
+      ),
+      leading: GestureDetector(
+        onTap: ontap,
+        child: Container(
         height: 30.0,
         width: 30.0,
         decoration: BoxDecoration(
@@ -219,7 +225,11 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      trailing: Icon(LineIcons.chevron_circle_right),
+      ),
+      trailing: GestureDetector(
+        onTap: ontap,
+        child: Icon(LineIcons.chevron_circle_right),
+      ),
     );
   }
 }
