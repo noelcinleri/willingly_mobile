@@ -12,10 +12,10 @@ class _HomePageState extends State<HomePage> {
   //pgsql:host=212.125.24.97;port=5432;dbname=Willingly;user=WillinglyUser;password=ok
   @override
   void initState() {
-    connection.open();
     super.initState();
   }
   Future<Widget> query()async{
+    connection.open();
     var results = await connection.query("SELECT * FROM public.\"AA\" WHERE \"Id\" = '0'");
     
     return Text('$results',style:TextStyle(color:Colors.green));
