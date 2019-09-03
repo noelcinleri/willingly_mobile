@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:willingly/app/_routing/routes.dart';
+import 'package:willingly/app/utils/colors.dart';
+import 'package:willingly/app/utils/utils.dart';
+import 'package:flutter/services.dart';
 
-class FirstLogin extends StatefulWidget {
-  firstLogin({Key key}) : super(key: key);
-
-  _firstLoginState createState() => _firstLoginState();
-}
-
-class _firstLoginState extends State<FirstLogin> {
+class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
+    // Change Status Bar Color
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: primaryColor),
     );
@@ -41,9 +39,10 @@ class _firstLoginState extends State<FirstLogin> {
             color: Colors.white,
             fontSize: 18.0,
             fontWeight: FontWeight.w500
-        ),
-      )
-    ],
+          ),
+        )
+      ],
+    );
 
     final loginBtn = InkWell(
       onTap: () => Navigator.pushNamed(context, loginViewRoute),
@@ -137,10 +136,6 @@ class _firstLoginState extends State<FirstLogin> {
           ],
         ),
       ),
-=======
-    return Container(
-       
->>>>>>> f710735dde38b39a4d1277cdc0bf4ec3b52e5005
     );
   }
 }
