@@ -88,12 +88,6 @@ class _RegisterPageState extends State<RegisterPage> {
             onChanged: _handleGenderChange,
           ),
           Text("Kadın"),
-          Radio(
-            value: 2,
-            groupValue: _genderRadioBtnVal,
-            onChanged: _handleGenderChange,
-          ),
-          Text("Diğer"),
         ],
       ),
     );
