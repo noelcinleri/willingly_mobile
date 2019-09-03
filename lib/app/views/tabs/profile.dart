@@ -109,15 +109,15 @@ class ProfilePage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(LineIcons.user, Colors.red, 'Profilim'),
+              _buildIconTile(LineIcons.user, Colors.red, 'Profilim',()=>{}),
               hr,
-              _buildIconTile(LineIcons.shopping_cart, Colors.green, 'Aldıklarım'),
+              _buildIconTile(LineIcons.shopping_cart, Colors.green, 'Aldıklarım',()=>{}),
               hr,
-              _buildIconTile(LineIcons.star, Colors.purpleAccent, 'Özel İsteklerim'),
+              _buildIconTile(LineIcons.star, Colors.purpleAccent, 'Özel İsteklerim',()=>{}),
               hr,
-              _buildIconTile(LineIcons.question, Colors.blue, 'Destek'),
+              _buildIconTile(LineIcons.question, Colors.blue, 'Destek',()=>{}),
               hr,
-              _buildIconTile(LineIcons.gear, Colors.amber, 'Ayarlar'),
+              _buildIconTile(LineIcons.gear, Colors.amber, 'Ayarlar',()=>{}),
             ],
           ),
         ),
@@ -138,11 +138,11 @@ class ProfilePage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(LineIcons.money, Colors.red, 'Satışlerim'),
+              _buildIconTile(LineIcons.money, Colors.red, 'Satışlerim',()=>{}),
               hr,
-              _buildIconTile(LineIcons.briefcase, Colors.blue, 'İş İlanlarım'),
+              _buildIconTile(LineIcons.briefcase, Colors.blue, 'İş İlanlarım',()=>{}),
               hr,
-              _buildIconTile(LineIcons.clock_o, Colors.orangeAccent, 'Alıcı İstekleri'),
+              _buildIconTile(LineIcons.clock_o, Colors.orangeAccent, 'Alıcı İstekleri',()=>{}),
             ],
           ),
         ),
@@ -203,15 +203,11 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildIconTile(IconData icon, Color color, String title,Function ontap) {
-    return ListTile(
-      
-      title: GestureDetector(
-        onTap: ontap,
-        child: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
-      ),
-      leading: GestureDetector(
-        onTap: ontap,
-        child: Container(
+    return GestureDetector(
+      onTap: ontap,
+      child: ListTile(
+      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
+      leading: Container(
         height: 30.0,
         width: 30.0,
         decoration: BoxDecoration(
@@ -225,11 +221,8 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      ),
-      trailing: GestureDetector(
-        onTap: ontap,
-        child: Icon(LineIcons.chevron_circle_right),
-      ),
+      trailing: Icon(LineIcons.chevron_circle_right),
+    ),
     );
   }
 }
