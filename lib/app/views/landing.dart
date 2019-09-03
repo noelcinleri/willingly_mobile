@@ -34,7 +34,7 @@ class LandingPage extends StatelessWidget {
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width/2,
+          width: MediaQuery.of(context).size.width*2/3,
           padding: EdgeInsets.all(5),
           child: Text(
           AppConfig.appTagline,
@@ -126,7 +126,7 @@ class LandingPage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(left: 10.0),
                 child: Container(
-                  height: 300.0,
+                  height: 250.0,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     image: DecorationImage(
