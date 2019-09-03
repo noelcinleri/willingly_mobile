@@ -33,13 +33,17 @@ class LandingPage extends StatelessWidget {
             fontSize: 30.0,
           ),
         ),
-        Text(
+        Container(
+          width: MediaQuery.of(context).size.width/2,
+          padding: EdgeInsets.all(5),
+          child: Text(
           AppConfig.appTagline,
           style: TextStyle(
             color: Colors.white,
             fontSize: 18.0,
             fontWeight: FontWeight.w500
           ),
+        ),
         )
       ],
     );
