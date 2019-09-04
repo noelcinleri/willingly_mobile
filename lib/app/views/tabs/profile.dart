@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildUserStats('VISITORS', ''),
+          _buildUserStats('', ''),
           _buildUserStats('LIKED', ''),
           _buildUserStats('MATCHED', ''),
         ],
@@ -93,7 +93,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
         ),
-        userStats
+        // userStats
       ],
     );
 
@@ -125,7 +125,7 @@ class ProfilePage extends StatelessWidget {
                 _launchURL();
               }),
               hr,
-              _buildIconTile(LineIcons.gear, Colors.amber, 'Ayarlar', () => {}),
+              _buildIconTile(LineIcons.gear, Colors.amber, 'Ayarlar', () => {Navigator.pushNamed(context, settingPage)}),
             ],
           ),
         ),

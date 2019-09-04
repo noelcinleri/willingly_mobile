@@ -55,28 +55,53 @@ class _LandingPageState extends State<LandingPage> {
       ],
     );
 
-    Widget loginBtn = GestureDetector(
-      onTap: () => Navigator.pushNamed(context, loginViewRoute),
-      child: Container(
-        height: 60.0,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.0),
-          border: Border.all(color: Colors.white),
-          color: Colors.transparent,
+    Widget loginBtn = Container(
+      height: 60.0,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(7.0),
+        border: Border.all(color: Colors.white),
+        color: Colors.transparent
+      ),
+      child: RaisedButton(
+        // elevation: 5.0,
+        onPressed: () => Navigator.pushNamed(context, loginViewRoute),
+        color: Colors.transparent,
+        shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(7.0),
         ),
-        child: Center(
-          child: Text(
-            'GİRİŞ YAP',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 20.0,
-              color: Colors.white,
-            ),
+        child: Text(
+          'GİRİŞ YAP',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 20.0,
           ),
         ),
       ),
     );
+    // GestureDetector(
+    //   onTap: () => Navigator.pushNamed(context, loginViewRoute),
+    //   child: Container(
+    //     height: 60.0,
+    //     width: MediaQuery.of(context).size.width,
+    //     decoration: BoxDecoration(
+    //       borderRadius: BorderRadius.circular(7.0),
+    //       border: Border.all(color: Colors.white),
+    //       color: Colors.transparent,
+    //     ),
+    //     child: Center(
+    //       child: Text(
+    //         'GİRİŞ YAP',
+    //         style: TextStyle(
+    //           fontWeight: FontWeight.w600,
+    //           fontSize: 20.0,
+    //           color: Colors.white,
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
 
     final registerBtn = Container(
       height: 60.0,
@@ -128,22 +153,7 @@ class _LandingPageState extends State<LandingPage> {
                 children: <Widget>[logo, appName, buttons],
               ),
             ),
-            Positioned(
-              bottom: 0,
-              child: Padding(
-                padding: EdgeInsets.only(left:(MediaQuery.of(context).size.width*1.5/8)),
-                child: Container(
-                  height: 150.0,
-                  width: MediaQuery.of(context).size.width*5/8,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AvailableImages.homePage,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
-            )
+            
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
@@ -12,9 +13,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
   TextEditingController mailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-
+  String mailErrorText;
+  String passErrorText;
   @override
   Widget build(BuildContext context) {
     // Change Status Bar Color
@@ -46,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
     Widget emailField = TextFormField(
       controller: mailController,
       decoration: InputDecoration(
+        errorText: mailErrorText,
         labelText: 'E-Posta Adresi',
         labelStyle: TextStyle(color: Colors.white),
         prefixIcon: Icon(
@@ -65,8 +69,20 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     Widget passwordField = TextFormField(
+      onEditingComplete: (){
+        setState(() {
+         if(passController.text.isEmpty){
+          passErrorText='şifre kısmı boş bırakamazsınız';
+          }
+          else{
+            passErrorText = null;
+          } 
+        });
+      },
       controller: passController,
       decoration: InputDecoration(
+        errorText: passErrorText,
+        errorStyle: TextStyle(color: Colors.white),
         labelText: 'Parola',
         labelStyle: TextStyle(color: Colors.white),
         prefixIcon: Icon(
@@ -95,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
     var value;
     Widget loginBtn = Container(
       margin: EdgeInsets.only(top: 40.0),
@@ -109,8 +126,48 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 5.0,
         onPressed: (){
           setState(() {
-            value = LoginCheck(post: fetchPost(mailController.text,passController.text),);
+           if(passController.text.isEmpty){
+            passErrorText='şifre kısmı boş bırakamazsınız';
+            return;
+            }
+            else{
+              passErrorText = null;
+            }
+            if(mailController.text.isEmpty){
+            mailErrorText='mail kısmı boş bırakamazsınız';
+            return;
+            }
+            else{
+              passErrorText = null;
+            } 
           });
+            returnLogin(mailController.text, passController.text).then((e){
+              if(e.status){
+                setState(() {
+                 Alert(context: context,
+                  title: 'Giriş Yapıldı',
+                  desc: 'sessionId ${e.session}',
+                  type: AlertType.success,
+                  buttons: [
+                    DialogButton(onPressed: ()=>Navigator.pop(context),child: Text('Kapat'),)
+                  ]
+                ).show();
+                });
+              }
+              else{
+                setState(() {
+                  Alert(context: context,
+                  title: 'Giriş Yapılamadı',
+                  desc: 'yeniden deneyin',
+                  type: AlertType.warning,
+                  buttons: [
+                    DialogButton(onPressed: ()=>Navigator.pop(context),child: Text('Kapat'),)
+                  ]
+                ).show();
+                });
+                
+              }
+            });
         },
         // onPressed: () =>  Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute, (Route<dynamic> route) => false),
         color: Colors.white,
@@ -171,8 +228,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
-    return Scaffold(
+    
+      return Scaffold(
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(top: 150.0, left: 30.0, right: 30.0),
@@ -187,11 +244,12 @@ class _LoginPageState extends State<LoginPage> {
               loginBtn,
               forgotPassword,
               newUser,
-              value !=null ? Text('girdila $value'): Text('daha boş')
             ],
           ),
         ),
       ),
     );
+    
+    
   }
 }

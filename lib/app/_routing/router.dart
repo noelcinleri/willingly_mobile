@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:willingly/app/_routing/routes.dart';
+import 'package:willingly/app/settings.dart';
 import 'package:willingly/app/views/chat_details.dart';
 import 'package:willingly/app/views/home.dart';
 import 'package:willingly/app/views/landing.dart';
@@ -18,6 +19,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => LoginPage());
     case registerViewRoute:
       return MaterialPageRoute(builder: (context) => RegisterPage());
+    case settingPage:
+      return MaterialPageRoute(builder: (context) => SettingsPage());
     case resetPasswordViewRoute:
       return MaterialPageRoute(builder: (context) => ResetPasswordPage());
     case chatDetailsViewRoute:

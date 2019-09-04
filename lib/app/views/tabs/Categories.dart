@@ -8,39 +8,6 @@ class CategoriesPage extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    final pageTitle = Padding(
-      padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
-      child: Text(
-        "Bildirimler",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontSize: 40.0,
-        ),
-      ),
-    );
-
-    final image = Image.asset(
-      AvailableImages.emptyState['assetPath'],
-    );
-
-    final notificationHeader = Container(
-      padding: EdgeInsets.only(top: 30.0, bottom: 10.0),
-      child: Text(
-        "Yeni bir bildiriminiz yok!",
-        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24.0),
-      ),
-    );
-    final notificationText = Text(
-      "Şu an okunacak bir bildiriminiz yok.",
-      style: TextStyle(
-        fontWeight: FontWeight.w600,
-        fontSize: 18.0,
-        color: Colors.grey.withOpacity(0.6),
-      ),
-      textAlign: TextAlign.center,
-    );
-  
   final hr = Divider();
     return Scaffold(
       body: Container(

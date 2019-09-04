@@ -12,41 +12,90 @@ Future<LoginJson> fetchPost(mail,pass) async {
   } else {
     throw Exception('Failed to load post');
   }
+
 }
 
+Future<LoginJson> returnLogin(mail,pass){
+  return fetchPost(mail, pass).then((e){
+    return e;
+  });
+}
 class LoginJson {
-  String status;
+  bool status;
+  String session;
 
-  LoginJson({this.status});
+  LoginJson({this.status,this.session});
 
   factory LoginJson.fromJson(Map<String, dynamic> json) {
     return LoginJson(
       status: json['Status'],
+      session: json['SessionID'],
     );
   }
 }
 
 
-class LoginCheck extends StatelessWidget {
+class LoginCheck {
   Future<LoginJson> post;
 
-  LoginCheck({Key key,@required this.post}) : super(key: key);
+  LoginCheck({Key key,@required this.post});
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<LoginJson>(
-     future: post,
-     builder: (context, snapshot) {
-       if (snapshot.hasData) {
-         return Text(snapshot.data.status.toString());
-       } else if (snapshot.hasError) {
-         return Text("${snapshot.error}");
-       }
+  // @override
+  // Widget build(BuildContext context) {
+  //    FutureBuilder<LoginJson>(
+  //    future: post,
+  //    builder: (context, snapshot) {
+  //      if (snapshot.hasData) {
+  //        return Text(snapshot.data.status.toString());
+  //      } else if (snapshot.hasError) {
+  //        return Text("${snapshot.error}");
+  //      }
 
-       return CircularProgressIndicator();
-     },
+  //      return CircularProgressIndicator();
+  //    },
+  //   );
+  // }
+}
+
+//Name,Surname,UserName,Email,Password
+class Post {
+  final String name;
+  final String surname;
+  final String username;
+  final String email;
+  final String password;
+  
+  Post({this.name, this.surname, this.username, this.email, this.password});
+ 
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      name: json['Name'],
+      surname: json['Surname'],
+      username: json['UserName'],
+      email: json['Email'],
+      password: json['Password'],
     );
   }
+ 
+  Map toMap() {
+    var map = new Map<String, dynamic>();
+    map['Name'] = name;
+    map['Surname'] = surname;
+    map['UserName'] = username;
+    map['Email'] = email;
+    map['Password'] = password;
+    return map;
+  }
+}
+Future<Post> createPost(String url, {Map body}) async {
+  return http.post(url, body: body).then((http.Response response) {
+    final int statusCode = response.statusCode;
+ 
+    if (statusCode < 200 || statusCode > 400 || json == null) {
+      throw new Exception("Error while fetching data");
+    }
+    return Post.fromJson(json.decode(response.body));
+  });
 }
 
 
