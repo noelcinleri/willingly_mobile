@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
@@ -18,6 +19,19 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passController = TextEditingController();
   String mailErrorText;
   String passErrorText;
+  bool clicked = false;
+
+  showToast(String _msg){
+      Fluttertoast.showToast(
+        msg: _msg,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+    }
   @override
   Widget build(BuildContext context) {
     // Change Status Bar Color
@@ -111,8 +125,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
-    num value = 1;
+    
     Widget loginBtn = Container(
       margin: EdgeInsets.only(top: 40.0),
       height: 60.0,
@@ -122,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
         border: Border.all(color: Colors.white),
         color: Colors.white,
       ),
-      child: RaisedButton(
+      child:clicked == false ? RaisedButton(
         elevation: 5.0,
         onPressed: (){
           setState(() {
@@ -143,33 +156,15 @@ class _LoginPageState extends State<LoginPage> {
           });
             if(passErrorText==null && mailErrorText == null){
               returnLogin(mailController.text, passController.text).then((e){
+                
               if(e.status){
                 setState(() {
-                 
+                 showToast('Giriş Yapılıyor ...');
                 });
               }
               else{
                 setState(() {
-                 showDialog(
-                   context: context,
-                   builder: (BuildContext context) {
-                     return Container(
-                       color:Colors.white12,
-                       child: Padding(
-                         padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width/2-25, 60, MediaQuery.of(context).size.width/2-25, 60),
-                         child: Container(
-                         width: 10,
-                         height: 10,
-                         decoration: BoxDecoration(
-                           image: DecorationImage(
-                             image: AssetImage('assets/images/loading.gif'),fit: BoxFit.contain,
-                           )
-                         ),
-                       ),
-                       )
-                     );
-                   }
-                 );
+                  showToast('Hatalı Girişim...');
                 });
               }
             });
@@ -188,9 +183,22 @@ class _LoginPageState extends State<LoginPage> {
             fontSize: 20.0,
           ),
         ),
-      ),
+      ):RaisedButton(
+        onPressed: (){},
+        color: Colors.grey,
+        shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(7.0),
+        ),
+        child:
+        Text(
+          'GİRİŞ YAP',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 20.0,
+          ),
+        ),),
     );
-
+    
     Widget forgotPassword = Padding(
       padding: EdgeInsets.only(top: 50.0),
       child: InkWell(

@@ -95,7 +95,10 @@ class _RegisterPageState extends State<RegisterPage> {
           }else{nameErrorText=null;}
       });
     }
-    
+    Future deneme(post)async{
+      Post s = await createPost(body:post.toMap());
+      return s;
+    }
   @override
   Widget build(BuildContext context) {
     Widget appBar = Padding(
@@ -207,14 +210,18 @@ class _RegisterPageState extends State<RegisterPage> {
                passCheck();
               });
               if(nameErrorText == null&&surnameErrorText== null&&mailErrorText== null&&usernameErrorText== null&&passErrorText== null&&_genderRadioBtnVal != -1){
-                Navigator.pushNamed(context, homeViewRoute);
-                // Post post = Post(email: mailController.text,name: nameController.text,surname: surnameController.text,password: passController.text);
-                // createPost('https://willingly.tk/inc/php/Insert_CreateNewUser.php',body:post.toMap()).then((s){
+                // Navigator.pushNamed(context, homeViewRoute);
+                Post post = Post(email: mailController.text,name: nameController.text,surname: surnameController.text,password: passController.text);
+                deneme(post).then((e){
+                  print('ne oldu $e');
+                });
+                // .then((s){
                 //   print('post (. $s .) ');
                 // });
               }
               else{
-                 Navigator.pushNamed(context, homeViewRoute);
+
+                //  Navigator.pushNamed(context, homeViewRoute);
               } 
             },
             // onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute, (Route<dynamic> route) => false),
