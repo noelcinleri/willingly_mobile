@@ -99,11 +99,6 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               appBar,
-              ListView(
-                children: <Widget>[
-                  
-                ],
-              ),
             ],
           ),
         ),

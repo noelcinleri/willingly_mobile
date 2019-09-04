@@ -19,10 +19,7 @@ dependencies:
   http: ^0.12.0+2
   rflutter_alert: ^1.0.3
   google_maps_flutter: ^0.5.11
-  flutter_google_places: ^0.2.3
-  liquid_pull_to_refresh: ^1.1.0
-  # gereksiz su anlik location: ^2.3.5
-
+  fluttertoast: ^3.1.2
   
 dev_dependencies:
   flutter_test:
@@ -51,6 +48,7 @@ flutter:
    - assets/images/logo.png
    - assets/images/empty.png
    - assets/images/post_banner.jpg
+   - assets/images/loading.gif
 
   fonts:
    - family: Barlow

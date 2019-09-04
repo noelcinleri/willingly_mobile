@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
@@ -18,6 +19,19 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passController = TextEditingController();
   String mailErrorText;
   String passErrorText;
+  bool clicked = false;
+
+  showToast(String _msg){
+      Fluttertoast.showToast(
+        msg: _msg,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+    }
   @override
   Widget build(BuildContext context) {
     // Change Status Bar Color
@@ -111,8 +125,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
-    var value;
+    
     Widget loginBtn = Container(
       margin: EdgeInsets.only(top: 40.0),
       height: 60.0,
@@ -122,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
         border: Border.all(color: Colors.white),
         color: Colors.white,
       ),
-      child: RaisedButton(
+      child:clicked == false ? RaisedButton(
         elevation: 5.0,
         onPressed: (){
           setState(() {
@@ -141,49 +154,51 @@ class _LoginPageState extends State<LoginPage> {
               passErrorText = null;
             } 
           });
-            returnLogin(mailController.text, passController.text).then((e){
+            if(passErrorText==null && mailErrorText == null){
+              returnLogin(mailController.text, passController.text).then((e){
+                
               if(e.status){
                 setState(() {
-                 Alert(context: context,
-                  title: 'Giriş Yapıldı',
-                  desc: 'sessionId ${e.session}',
-                  type: AlertType.success,
-                  buttons: [
-                    DialogButton(onPressed: ()=>Navigator.pop(context),child: Text('Kapat'),)
-                  ]
-                ).show();
+                 showToast('Giriş Yapılıyor ...');
                 });
               }
               else{
                 setState(() {
-                  Alert(context: context,
-                  title: 'Giriş Yapılamadı',
-                  desc: 'yeniden deneyin',
-                  type: AlertType.warning,
-                  buttons: [
-                    DialogButton(onPressed: ()=>Navigator.pop(context),child: Text('Kapat'),)
-                  ]
-                ).show();
+                  showToast('Hatalı Girişim...');
                 });
-                
               }
             });
+          }
         },
         // onPressed: () =>  Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute, (Route<dynamic> route) => false),
         color: Colors.white,
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(7.0),
         ),
-        child: Text(
+        child:
+        Text(
           'GİRİŞ YAP',
           style: TextStyle(
             fontWeight: FontWeight.w800,
             fontSize: 20.0,
           ),
         ),
-      ),
+      ):RaisedButton(
+        onPressed: (){},
+        color: Colors.grey,
+        shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(7.0),
+        ),
+        child:
+        Text(
+          'GİRİŞ YAP',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 20.0,
+          ),
+        ),),
     );
-
+    
     Widget forgotPassword = Padding(
       padding: EdgeInsets.only(top: 50.0),
       child: InkWell(
