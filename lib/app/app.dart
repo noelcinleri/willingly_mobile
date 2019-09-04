@@ -4,10 +4,11 @@ import '_routing/router.dart' as router;
 import 'theme.dart';
 
 class App extends StatelessWidget {
+  static String appname='Willingly';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Social',
+      title: appname,
       debugShowCheckedModeBanner: false,
       theme: buildThemeData(),
       onGenerateRoute: router.generateRoute,

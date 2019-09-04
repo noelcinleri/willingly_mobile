@@ -39,22 +39,6 @@ class LoginCheck {
   Future<LoginJson> post;
 
   LoginCheck({Key key,@required this.post});
-
-  // @override
-  // Widget build(BuildContext context) {
-  //    FutureBuilder<LoginJson>(
-  //    future: post,
-  //    builder: (context, snapshot) {
-  //      if (snapshot.hasData) {
-  //        return Text(snapshot.data.status.toString());
-  //      } else if (snapshot.hasError) {
-  //        return Text("${snapshot.error}");
-  //      }
-
-  //      return CircularProgressIndicator();
-  //    },
-  //   );
-  // }
 }
 
 //Name,Surname,UserName,Email,Password
