@@ -45,6 +45,7 @@ flutter:
    - assets/images/logo.png
    - assets/images/empty.png
    - assets/images/post_banner.jpg
+   - assets/images/loading.gif
 
   fonts:
    - family: Barlow

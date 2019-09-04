@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    var value;
+    num value = 1;
     Widget loginBtn = Container(
       margin: EdgeInsets.only(top: 40.0),
       height: 60.0,
@@ -141,40 +141,47 @@ class _LoginPageState extends State<LoginPage> {
               passErrorText = null;
             } 
           });
-            returnLogin(mailController.text, passController.text).then((e){
+            if(passErrorText==null && mailErrorText == null){
+              returnLogin(mailController.text, passController.text).then((e){
               if(e.status){
                 setState(() {
-                 Alert(context: context,
-                  title: 'Giriş Yapıldı',
-                  desc: 'sessionId ${e.session}',
-                  type: AlertType.success,
-                  buttons: [
-                    DialogButton(onPressed: ()=>Navigator.pop(context),child: Text('Kapat'),)
-                  ]
-                ).show();
+                 
                 });
               }
               else{
                 setState(() {
-                  Alert(context: context,
-                  title: 'Giriş Yapılamadı',
-                  desc: 'yeniden deneyin',
-                  type: AlertType.warning,
-                  buttons: [
-                    DialogButton(onPressed: ()=>Navigator.pop(context),child: Text('Kapat'),)
-                  ]
-                ).show();
+                 showDialog(
+                   context: context,
+                   builder: (BuildContext context) {
+                     return Container(
+                       color:Colors.white12,
+                       child: Padding(
+                         padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width/2-25, 60, MediaQuery.of(context).size.width/2-25, 60),
+                         child: Container(
+                         width: 10,
+                         height: 10,
+                         decoration: BoxDecoration(
+                           image: DecorationImage(
+                             image: AssetImage('assets/images/loading.gif'),fit: BoxFit.contain,
+                           )
+                         ),
+                       ),
+                       )
+                     );
+                   }
+                 );
                 });
-                
               }
             });
+          }
         },
         // onPressed: () =>  Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute, (Route<dynamic> route) => false),
         color: Colors.white,
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(7.0),
         ),
-        child: Text(
+        child:
+        Text(
           'GİRİŞ YAP',
           style: TextStyle(
             fontWeight: FontWeight.w800,

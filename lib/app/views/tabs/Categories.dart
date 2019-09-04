@@ -12,7 +12,7 @@ class CategoriesPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(
-          top: 30.0,
+          top: 50.0,
           left: 20.0,
           right: 20.0,
         ),
@@ -22,20 +22,19 @@ class CategoriesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              height: 70,
+              height: 80,
               child: pageTitle,
             ),
-            _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
-            _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
-            _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
-
+            hr,_buildIconTile(Icons.gamepad, Colors.blue, 'Kategori1'),hr,
           ],
         ),
       ),
     );
   }
   Widget _buildIconTile(IconData icon, Color color, String title) {
-    return ListTile(
+    return GestureDetector(
+      // onTap: Navigator.pushNamed(context, routeName),
+      child: ListTile(
       title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
       leading: Container(
         height: 30.0,
@@ -52,6 +51,7 @@ class CategoriesPage extends StatelessWidget {
         ),
       ),
       trailing: Icon(LineIcons.chevron_circle_right),
+    ),
     );
   }
   
@@ -69,10 +69,10 @@ class CategoriesPage extends StatelessWidget {
   //             borderSide: BorderSide(color: Colors.green))),
   // );
 
-  final pageTitle = Padding(
+  Widget pageTitle = Padding(
     padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
     child: Text(
-    "Haberler",
+    "Kategoriler",
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
