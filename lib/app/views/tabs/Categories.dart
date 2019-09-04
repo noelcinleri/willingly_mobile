@@ -23,7 +23,7 @@ class CategoriesPage extends StatelessWidget {
           children: <Widget>[
             Container(
               height: 70,
-              child: searchField,
+              child: pageTitle,
             ),
             _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
             _buildIconTile(Icons.gamepad, Colors.blue, 'Games'),hr,
@@ -56,16 +56,28 @@ class CategoriesPage extends StatelessWidget {
   }
   
 
-  Widget searchField = TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        icon: Icon(Icons.search,color: Colors.black,),
-          labelText: 'Ara',
-          labelStyle: TextStyle(
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.bold,
-              color: Colors.grey),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.green))),
+  // Widget searchField = TextField(
+  //     keyboardType: TextInputType.emailAddress,
+  //     decoration: InputDecoration(
+  //       icon: Icon(Icons.search,color: Colors.black,),
+  //         labelText: 'Ara',
+  //         labelStyle: TextStyle(
+  //             fontFamily: 'Montserrat',
+  //             fontWeight: FontWeight.bold,
+  //             color: Colors.grey),
+  //         focusedBorder: UnderlineInputBorder(
+  //             borderSide: BorderSide(color: Colors.green))),
+  // );
+
+  final pageTitle = Padding(
+    padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
+    child: Text(
+    "Haberler",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+        fontSize: 40.0,
+      ),
+    ),
   );
 }

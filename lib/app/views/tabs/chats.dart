@@ -102,7 +102,8 @@ class ChatsPage extends StatelessWidget {
                     pageTitle,
                     // searchBar,
                     // onlineUsers,
-                    chatList
+                    // chatList
+                    Text("Yakında Geliyor...", textAlign: TextAlign.center,)
                   ],
                 ),
               )
