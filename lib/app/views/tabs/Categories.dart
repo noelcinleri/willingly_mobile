@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:willingly/app/utils/utils.dart';
+//liquid refresh
+//import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+
 
 class CategoriesPage extends StatelessWidget {
   @override
@@ -34,7 +37,9 @@ class CategoriesPage extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildIconTile(IconData icon, Color color, String title) {
+    
     return ListTile(
       title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
       leading: Container(
@@ -72,7 +77,7 @@ class CategoriesPage extends StatelessWidget {
   final pageTitle = Padding(
     padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
     child: Text(
-    "Haberler",
+    "Kategoriler",
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
