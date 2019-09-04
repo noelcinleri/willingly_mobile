@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:willingly/app/views/tabs/chats.dart';
+import 'package:willingly/app/views/tabs/maps.dart';
 import 'package:willingly/app/views/tabs/feeds.dart';
 import 'package:willingly/app/views/tabs/Categories.dart';
 import 'package:willingly/app/views/tabs/profile.dart';
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     FeedsPage(),
     CategoriesPage(),
-    ChatsPage(),
+    Maps(),
     ProfilePage()
   ];
 
