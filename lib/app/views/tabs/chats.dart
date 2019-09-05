@@ -122,12 +122,12 @@ class ChatsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
-                    // searchBar,
+                    searchBar,
                     // onlineUsers,
-                    chatList,
-                    // noConversationImage,
-                    // noConversationHeader,
-                    // noConversationText,
+                    //chatList,
+                    noConversationImage,
+                    noConversationHeader,
+                    noConversationText,
                   ],
                 ),
               )
