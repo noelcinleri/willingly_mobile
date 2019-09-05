@@ -105,7 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 return ListBody(
                   children: <Widget>[
                     ListTile(
-                      
+                      title: Text(''),
                     )
                   ],
                 );
