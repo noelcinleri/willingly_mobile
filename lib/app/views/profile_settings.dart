@@ -30,7 +30,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Ayarlar",
+          "Profil Ayarlar",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -40,27 +40,6 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       ],
     );
 
-    Widget emailField = TextFormField(
-      controller: mailController,
-      decoration: InputDecoration(
-        errorText: mailErrorText,
-        labelText: 'E-Posta Adresi',
-        labelStyle: TextStyle(color: Colors.white),
-        prefixIcon: Icon(
-          LineIcons.envelope,
-          color: Colors.white,
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-      keyboardType: TextInputType.emailAddress,
-      style: TextStyle(color: Colors.white),
-      cursorColor: Colors.white,
-    );
   Widget appBar = Material(
       elevation: 5.0,
       shadowColor: Colors.grey,

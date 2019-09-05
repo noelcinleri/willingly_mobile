@@ -1,19 +1,46 @@
 import 'package:willingly/app/models/user.dart';
+import 'package:http/http.dart';
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:willingly/json.dart';
+
+Future<Post> fetchPost() async {
+  var http;
+  final response =
+      //Buraya kendi php ni ekliyecez
+      await http.get('https://jsonplaceholder.typicode.com/posts/1');
+
+  if (response.statusCode == 200) {
+    // If the call to the server was successful, parse the JSON.
+    return Post.fromJson(json.decode(response.body));
+  } else {
+    // If that call was not successful, throw an error.
+    throw Exception('Failed to load post');
+  }
+}
 
 class Chat {
   int id, userId, unreadCount;
   String userName, userImage;
   String message;
 
-  Chat(this.id, this.userId, this.userName, this.userImage, this.unreadCount, this.message);
+  Chat({this.id, this.userId, this.userName, this.userImage, this.unreadCount, this.message});
+
+  factory Chat.fromJson(Map<String, dynamic> json) {
+    return Chat(
+      userId: json['userId'],
+      id: json['id'],
+      userName: json['userName'],
+      userImage: json['userImage'],
+      unreadCount: json['unreadCount'],
+      message: json['message'],
+    );
+  }
+  //Chat(this.id, this.userId, this.userName, this.userImage, this.unreadCount, this.message);
 }
 
 List<Chat> chats = [
-  //Kullanicinin session id si ile mesajlar datasini cek
-  //ardindan buraya listele
-  
-  Chat(1, users[1].id, users[1].name, users[1].photo, 3, "Hey! How's it going?"),
-  // Chat(2, users[2].id, users[2].name, users[2].photo, 1, "What kind of music do you like?"),
-  // Chat(3, users[3].id, users[3].name, users[3].photo, 0, "Sound good to me."),
-  // Chat(4, users[4].id, users[4].name, users[4].photo, 0, "Sure, see you on Saturday."),
+  //Yukardaki Seyleri buraya listele sonra chats.dart da goster
+  Chat(),
 ];
