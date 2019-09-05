@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:willingly/app/utils/sessionId.dart';
 
 Future<LoginJson> fetchPost(mail,pass) async {
   var response =
@@ -40,7 +41,6 @@ class LoginCheck {
 
   LoginCheck({Key key,@required this.post});
 }
-
 //Name,Surname,UserName,Email,Password
 class Post {
   final String name;
