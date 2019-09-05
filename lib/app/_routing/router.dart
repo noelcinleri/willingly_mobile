@@ -5,6 +5,7 @@ import 'package:willingly/app/views/chat_details.dart';
 import 'package:willingly/app/views/home.dart';
 import 'package:willingly/app/views/landing.dart';
 import 'package:willingly/app/views/login.dart';
+import 'package:willingly/app/views/profile_settings.dart';
 import 'package:willingly/app/views/register.dart';
 import 'package:willingly/app/views/reset_password.dart';
 import 'package:willingly/app/views/user_details.dart';
@@ -13,6 +14,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case landingViewRoute:
       return MaterialPageRoute(builder: (context) => LandingPage());
+    case profilSettingRoute:
+      return MaterialPageRoute(builder: (context) => ProfileSettingsPage());
     case homeViewRoute:
       return MaterialPageRoute(builder: (context) => HomePage());
     case loginViewRoute:

@@ -4,6 +4,7 @@ import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/models/chat.dart';
 import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
+import 'package:willingly/app/utils/utils.dart';
 
 class ChatsPage extends StatelessWidget {
   @override
@@ -20,6 +21,27 @@ class ChatsPage extends StatelessWidget {
           fontSize: 40.0,
         ),
       ),
+    );
+
+    final noConversationImage = Image.asset(
+      AvailableImages.emptyState['assetPath'],
+    );
+
+    final noConversationHeader = Container(
+      padding: EdgeInsets.only(top: 30.0, bottom: 10.0),
+      child: Text(
+        "Burası bayağı yanlız",
+        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24.0),
+      ),
+    );
+    final noConversationText = Text(
+      "Şu anda okunacak bir mesajın yok.",
+      style: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 18.0,
+        color: Colors.grey.withOpacity(0.6),
+      ),
+      textAlign: TextAlign.center,
     );
 
     final searchBar = Container(
@@ -102,8 +124,10 @@ class ChatsPage extends StatelessWidget {
                     pageTitle,
                     // searchBar,
                     // onlineUsers,
-                    // chatList
-                    Text("Yakında Geliyor...", textAlign: TextAlign.center,)
+                    chatList,
+                    // noConversationImage,
+                    // noConversationHeader,
+                    // noConversationText,
                   ],
                 ),
               )
@@ -113,6 +137,7 @@ class ChatsPage extends StatelessWidget {
       ),
     );
   }
+  
 
   Widget _buildUserCard(User user, BuildContext context) {
     final firstName = user.name.split(" ")[0];
