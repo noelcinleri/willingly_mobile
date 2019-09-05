@@ -119,7 +119,7 @@ class ProfilePage extends StatelessWidget {
                   'Aldıklarım', () => {}),
               hr,
               _buildIconTile(LineIcons.star, Colors.purpleAccent,
-                  'Özel İsteklerim', () => {}),
+                  'Özel İsteklerim', () => {Navigator.pushNamed(context, profilSettingRoute)}),
               hr,
               _buildIconTile(LineIcons.question, Colors.blue, 'Destek', () {
                 _launchURL();
