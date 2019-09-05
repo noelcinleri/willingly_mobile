@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
         textColor: Colors.white,
         fontSize: 16.0
     );
-    }
+  }
   @override
   Widget build(BuildContext context) {
     // Change Status Bar Color
@@ -160,6 +160,7 @@ class _LoginPageState extends State<LoginPage> {
               if(e.status){
                 setState(() {
                  showToast('Giriş Yapılıyor ...');
+                 Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute,(Route<dynamic> route) => false);
                 });
               }
               else{
