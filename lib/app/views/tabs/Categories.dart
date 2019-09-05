@@ -1,17 +1,38 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:willingly/app/utils/utils.dart';
-//liquid refresh
-//import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:willingly/json.dart';
 
+class CategoriesPage extends StatefulWidget {
+  CategoriesPage({Key key}) : super(key: key);
 
-class CategoriesPage extends StatelessWidget {
+  _CategoriesPageState createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+  List cards = new List();
+  @override
+  void initState() {
+    fetchCategory().then((e){
+      List<Color> colors = [Colors.blue,Colors.purpleAccent,Colors.amber,Colors.orangeAccent,Colors.green];
+      Random rnd = new Random();
+      num rndNumber= 0;
+      for (var i = 0; i < e.length; i++) {
+        rndNumber = rnd.nextInt(colors.length);
+        cards.add(BuildIconTile(color: colors[rndNumber],icon:Icons.hot_tub ,title: e[i].name.toString(),));
+      }
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-  final hr = Divider();
+  Widget hr = Divider();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(
@@ -26,17 +47,61 @@ class CategoriesPage extends StatelessWidget {
           children: <Widget>[
             Container(
               height: 80,
-              child: pageTitle,
+              child: searchField,
             ),
+<<<<<<< HEAD
             hr,_buildIconTile(Icons.gamepad, Colors.blue, 'Kategori'),hr,
+=======
+            // cards
+>>>>>>> a2ced05adb7791f2b9bf8a5c2bafdac241c1a6da
           ],
         ),
       ),
     );
   }
+  
+  
 
+  Widget searchField = TextField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        icon: Icon(Icons.search,color: Colors.black,),
+          labelText: 'Ara',
+          labelStyle: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.green))),
+  );
+
+  Widget pageTitle = Padding(
+    padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
+    child: Text(
+    "Kategoriler",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+        fontSize: 40.0,
+      ),
+    ),
+  );
+}
+class BuildIconTile extends StatelessWidget {
+    final IconData icon;
+    final Color color;
+    final String title;
+
+<<<<<<< HEAD
   Widget _buildIconTile(IconData icon, Color color, String title) {
     return GestureDetector(
+=======
+  const BuildIconTile({Key key, this.icon, this.color, this.title}) : super(key: key);
+    
+    @override
+    Widget build(BuildContext context) {
+      return GestureDetector(
+>>>>>>> a2ced05adb7791f2b9bf8a5c2bafdac241c1a6da
       // onTap: Navigator.pushNamed(context, routeName),
       child: ListTile(
       title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
@@ -57,31 +122,5 @@ class CategoriesPage extends StatelessWidget {
       trailing: Icon(LineIcons.chevron_circle_right),
     ),
     );
+    }
   }
-  
-
-  // Widget searchField = TextField(
-  //     keyboardType: TextInputType.emailAddress,
-  //     decoration: InputDecoration(
-  //       icon: Icon(Icons.search,color: Colors.black,),
-  //         labelText: 'Ara',
-  //         labelStyle: TextStyle(
-  //             fontFamily: 'Montserrat',
-  //             fontWeight: FontWeight.bold,
-  //             color: Colors.grey),
-  //         focusedBorder: UnderlineInputBorder(
-  //             borderSide: BorderSide(color: Colors.green))),
-  // );
-
-  Widget pageTitle = Padding(
-    padding: EdgeInsets.only(top: 1.0, bottom: 30.0),
-    child: Text(
-    "Kategoriler",
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-        fontSize: 40.0,
-      ),
-    ),
-  );
-}

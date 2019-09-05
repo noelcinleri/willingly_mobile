@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:willingly/app/views/login.dart';
 import 'package:willingly/json.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -12,7 +16,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   int _genderRadioBtnVal = -1;
-  
+
   TextEditingController passController = TextEditingController();
   String passErrorText;
   TextEditingController mailController = TextEditingController();
@@ -25,80 +29,111 @@ class _RegisterPageState extends State<RegisterPage> {
   String phoneErrorText;
   TextEditingController usernameController = TextEditingController();
   String usernameErrorText;
-  
+
+  bool status;
+  bool loading = false;
   void _handleGenderChange(int value) {
     setState(() {
       _genderRadioBtnVal = value;
     });
   }
-  phoneCheck(){
-      setState(() {
-       if(phoneController.text.isEmpty){
-          phoneErrorText= "telefon numarası kısmını boş bırakamazsın";
-       }else if(phoneController.text.length < 10){phoneErrorText="Geçerli bir telefon numarası giriniz";}
-       else{
-         try {
-           if(phoneController.text.contains('+')){
-             phoneController.text.replaceAll('+', '');
-           }
-           int numara = int.parse(phoneController.text);
-          phoneErrorText= null;
-         } catch (e) {
-           phoneErrorText = 'Geçerli bir telefon numarası giriniz';
-         }
-       } 
-      });
-    }
-    passCheck(){
-      setState(() {
-        if(passController.text.isEmpty){
-          passErrorText= "şifre kısmını boş bırakamazsın";
-      }else if(passController.text.length <= 6){passErrorText="Şifreniz minimum 7 haneli olmalıdır";}
-      else{
+
+  phoneCheck() {
+    setState(() {
+      if (phoneController.text.isEmpty) {
+        phoneErrorText = "telefon numarası kısmını boş bırakamazsın";
+      } else if (phoneController.text.length < 10) {
+        phoneErrorText = "Geçerli bir telefon numarası giriniz";
+      } else {
         try {
-          num pass = int.parse(passController.text);
-          passErrorText='Şifrenizde minimum 1 tane harf bulunmalıdır ';
+          if (phoneController.text.contains('+')) {
+            phoneController.text.replaceAll('+', '');
+          }
+          int numara = int.parse(phoneController.text);
+          phoneErrorText = null;
         } catch (e) {
-         passErrorText = null;
+          phoneErrorText = 'Geçerli bir telefon numarası giriniz';
         }
       }
-      });
-    }
-    mailCheck(){
-      setState(() {
-        if(mailController.text.isEmpty){
-         mailErrorText= "mail kısmını boş bırakamazsın";
-      }else if(!mailController.text.contains('@') || !mailController.text.contains('.')){mailErrorText='Geçerli bir mail adresi giriniz';}
-      else{mailErrorText=null;}
-      });
-      
-    }
-    surnameCheck(){
-      setState(() {
-        if(surnameController.text.isEmpty){
-         surnameErrorText= "Soyad kısmını boş bırakamazsınız";
-      }else{surnameErrorText=null;}
-      });
-      
-    }
-    usernameCheck(){
-      setState(() {
-        if(usernameController.text.isEmpty){
-         usernameErrorText= "Kullanıcı adı kısmını boş bırakamazsınız";
-      }else{usernameErrorText=null;}
-      });
-    }
-    nameCheck(){
-      setState(() {
-        if(nameController.text.isEmpty){
-         nameErrorText= "Ad kısmını boş bırakamazsın";
-          }else{nameErrorText=null;}
-      });
-    }
-    Future deneme(post)async{
-      Post s = await createPost(body:post.toMap());
-      return s;
-    }
+    });
+  }
+
+  passCheck() {
+    setState(() {
+      if (passController.text.isEmpty) {
+        passErrorText = "şifre kısmını boş bırakamazsın";
+      } else if (passController.text.length <= 6) {
+        passErrorText = "Şifreniz minimum 7 haneli olmalıdır";
+      } else {
+        try {
+          num pass = int.parse(passController.text);
+          passErrorText = 'Şifrenizde minimum 1 tane harf bulunmalıdır ';
+        } catch (e) {
+          passErrorText = null;
+        }
+      }
+    });
+  }
+
+  mailCheck() {
+    setState(() {
+      if (mailController.text.isEmpty) {
+        mailErrorText = "mail kısmını boş bırakamazsın";
+      } else if (!mailController.text.contains('@') ||
+          !mailController.text.contains('.')) {
+        mailErrorText = 'Geçerli bir mail adresi giriniz';
+      } else {
+        mailErrorText = null;
+      }
+    });
+  }
+
+  surnameCheck() {
+    setState(() {
+      if (surnameController.text.isEmpty) {
+        surnameErrorText = "Soyad kısmını boş bırakamazsınız";
+      } else {
+        surnameErrorText = null;
+      }
+    });
+  }
+
+  usernameCheck() {
+    setState(() {
+      if (usernameController.text.isEmpty) {
+        usernameErrorText = "Kullanıcı adı kısmını boş bırakamazsınız";
+      } else {
+        usernameErrorText = null;
+      }
+    });
+  }
+
+  nameCheck() {
+    setState(() {
+      if (nameController.text.isEmpty) {
+        nameErrorText = "Ad kısmını boş bırakamazsın";
+      } else {
+        nameErrorText = null;
+      }
+    });
+  }
+
+  Future deneme(Post post) async {
+    Post s = await postDeneme(post.toMap());
+    return s;
+  }
+
+  showToast(String _msg) {
+    Fluttertoast.showToast(
+        msg: _msg,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget appBar = Padding(
@@ -138,17 +173,29 @@ class _RegisterPageState extends State<RegisterPage> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            _buildFormField('Adın', LineIcons.user,nameController,nameErrorText,nameCheck()),
+            _buildFormField('Adın', LineIcons.user, nameController,
+                nameErrorText, nameCheck()),
             formFieldSpacing,
-            _buildFormField('Soyadın', LineIcons.user,surnameController,surnameErrorText,()=>surnameCheck()),
+            _buildFormField('Soyadın', LineIcons.user, surnameController,
+                surnameErrorText, () => surnameCheck()),
             formFieldSpacing,
-            _buildFormField('Kullanıcı Adı', LineIcons.circle_o_notch,usernameController,usernameErrorText,()=>usernameCheck()),
+            _buildFormField('Kullanıcı Adı', LineIcons.circle_o_notch,
+                usernameController, usernameErrorText, () => usernameCheck()),
             formFieldSpacing,
-            _buildFormField('E-Posta Adresi', LineIcons.envelope,mailController,mailErrorText,()=>mailCheck(),TextInputType.emailAddress),
+            _buildFormField(
+                'E-Posta Adresi',
+                LineIcons.envelope,
+                mailController,
+                mailErrorText,
+                () => mailCheck(),
+                TextInputType.emailAddress),
             formFieldSpacing,
             // _buildFormField('Telefon Numarası', LineIcons.mobile_phone,phoneController,phoneErrorText,()=>phoneCheck(),TextInputType.phone),
             // formFieldSpacing,
-            _buildFormField('Parola', LineIcons.lock,passController,passErrorText,(){passCheck();}),
+            _buildFormField(
+                'Parola', LineIcons.lock, passController, passErrorText, () {
+              passCheck();
+            }),
             formFieldSpacing,
           ],
         ),
@@ -175,7 +222,33 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
     String genderConrtrol = ' ';
-    Widget genderErrorText() {return Text(_genderRadioBtnVal==-1?'Cinsiyet seçimini yapmalısınız':' ',style: TextStyle(fontSize: 12,color: Colors.red),);}
+    Widget genderErrorText() {
+      return Text(
+        _genderRadioBtnVal == -1 ? 'Cinsiyet seçimini yapmalısınız' : ' ',
+        style: TextStyle(fontSize: 12, color: Colors.red),
+      );
+    }
+
+    show() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Başarısız Girişim'),
+              content:
+                  Text('Bu mail adresi üzerinden daha önce hesap açılmıştır'),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("Tamam"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
+
     Widget submitBtn = Padding(
       padding: EdgeInsets.only(top: 20.0),
       child: Container(
@@ -192,37 +265,61 @@ class _RegisterPageState extends State<RegisterPage> {
           elevation: 10.0,
           shadowColor: Colors.white70,
           child: MaterialButton(
-            onPressed: (){
+            onPressed: () {
               setState(() {
-               //name check
-               nameCheck();
-               //surname check
-               surnameCheck();
-               //mail Check
-               mailCheck();
+                //name check
+                nameCheck();
+                //surname check
+                surnameCheck();
+                //mail Check
+                mailCheck();
 
-               //username Check
-               usernameCheck();
-               //Phone Check
-               //  phoneCheck();
-               
-               //Pass Check
-               passCheck();
+                //username Check
+                usernameCheck();
+                //Phone Check
+                //  phoneCheck();
+
+                //Pass Check
+                passCheck();
               });
-              if(nameErrorText == null&&surnameErrorText== null&&mailErrorText== null&&usernameErrorText== null&&passErrorText== null&&_genderRadioBtnVal != -1){
+              if (nameErrorText == null &&
+                  surnameErrorText == null &&
+                  mailErrorText == null &&
+                  usernameErrorText == null &&
+                  passErrorText == null &&
+                  _genderRadioBtnVal != -1) {
                 // Navigator.pushNamed(context, homeViewRoute);
-                Post post = Post(email: mailController.text,name: nameController.text,surname: surnameController.text,password: passController.text);
-                deneme(post).then((e){
-                  print('ne oldu $e');
+                Post post = Post(
+                    email: mailController.text,
+                    name: nameController.text,
+                    surname: surnameController.text,
+                    password: passController.text,
+                    username: usernameController.text);
+                setState(() {
+                  loading = true;
+                });
+                deneme(post).then((e) {
+                  setState(() {
+                    status = e.statu;
+                    loading = false;
+                     if(status){
+                      showToast('Hesabınız Oluşturuldu');
+                      Navigator.pushNamed(context, loginViewRoute);
+                      }
+                      else{
+                        show();
+                      }
+                  });
+
+                  print(
+                      'Statu => ${e.statu.toString()} , id = ${e.id.toString()}');
                 });
                 // .then((s){
                 //   print('post (. $s .) ');
                 // });
-              }
-              else{
-
+              } else {
                 //  Navigator.pushNamed(context, homeViewRoute);
-              } 
+              }
             },
             // onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute, (Route<dynamic> route) => false),
             child: Text(
@@ -237,38 +334,67 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-    
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(top: 40.0),
-          child: Column(
-            children: <Widget>[
-              appBar,
-              Container(
-                padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    pageTitle,
-                    registerForm,
-                    gender,genderErrorText(),
-                    submitBtn
-                  ],
-                ),
-              )
-            ],
+
+    if (!loading) {
+      return Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(top: 40.0),
+            child: Column(
+              children: <Widget>[
+                appBar,
+                Container(
+                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      pageTitle,
+                      registerForm,
+                      gender,
+                      genderErrorText(),
+                      submitBtn
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Center(
+        child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,),
+            child: new BackdropFilter(
+              filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              child: new Container(
+                decoration:
+                    new BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                child: Center(
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/loading.gif'),
+                            fit: BoxFit.contain)),
+                  ),
+                ),
+              ),
+            )),
+      );
+    }
   }
 
-  Widget _buildFormField(String label, IconData icon,TextEditingController _controller , String _errorText,Function complated,[TextInputType inputType=TextInputType.text]) {
-    
+  Widget _buildFormField(String label, IconData icon,
+      TextEditingController _controller, String _errorText, Function complated,
+      [TextInputType inputType = TextInputType.text]) {
     return TextField(
       onEditingComplete: complated,
-      onChanged: (e){complated();},
+      onChanged: (e) {
+        complated();
+      },
       controller: _controller,
       decoration: InputDecoration(
         errorText: _errorText,

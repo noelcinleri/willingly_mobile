@@ -6,12 +6,15 @@ import 'package:line_icons/line_icons.dart';
 import 'package:flutter/services.dart';
 import 'package:willingly/json.dart';
 
-class SettingsPage extends StatefulWidget {
+class CategoryDetails extends StatefulWidget {
+  final String categoriName;
+
+  const CategoryDetails({Key key, this.categoriName}) : super(key: key);
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _CategoryDetailsState createState() => _CategoryDetailsState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _CategoryDetailsState extends State<CategoryDetails> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController mailController = TextEditingController();
@@ -28,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Ayarlar",
+          widget.categoriName,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -38,27 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
     );
 
-    Widget emailField = TextFormField(
-      controller: mailController,
-      decoration: InputDecoration(
-        errorText: mailErrorText,
-        labelText: 'E-Posta Adresi',
-        labelStyle: TextStyle(color: Colors.white),
-        prefixIcon: Icon(
-          LineIcons.envelope,
-          color: Colors.white,
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-      keyboardType: TextInputType.emailAddress,
-      style: TextStyle(color: Colors.white),
-      cursorColor: Colors.white,
-    );
+    
   Widget appBar = Material(
       elevation: 5.0,
       shadowColor: Colors.grey,
@@ -72,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: Icon(Icons.arrow_back),
             ),
             Text(
-          "Ayarlar",
+          widget.categoriName,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -85,9 +68,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
     
-
-
-    
       return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -99,18 +79,6 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               appBar,
-              ListView.builder(
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                return ListBody(
-                  children: <Widget>[
-                    ListTile(
-                      title: Text(''),
-                    )
-                  ],
-                );
-               },
-              ),
             ],
           ),
         ),
