@@ -8,12 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:willingly/json.dart';
 import 'package:line_icons/line_icons.dart';
 
-class SettingsPage extends StatefulWidget {
+class ProfileSettingsPage extends StatefulWidget {
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _ProfileSettingsPageState createState() => _ProfileSettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController mailController = TextEditingController();

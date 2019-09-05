@@ -49,11 +49,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               height: 80,
               child: searchField,
             ),
-<<<<<<< HEAD
-            hr,_buildIconTile(Icons.gamepad, Colors.blue, 'Kategori'),hr,
-=======
             // cards
->>>>>>> a2ced05adb7791f2b9bf8a5c2bafdac241c1a6da
           ],
         ),
       ),
@@ -92,16 +88,11 @@ class BuildIconTile extends StatelessWidget {
     final Color color;
     final String title;
 
-<<<<<<< HEAD
-  Widget _buildIconTile(IconData icon, Color color, String title) {
-    return GestureDetector(
-=======
   const BuildIconTile({Key key, this.icon, this.color, this.title}) : super(key: key);
     
     @override
     Widget build(BuildContext context) {
       return GestureDetector(
->>>>>>> a2ced05adb7791f2b9bf8a5c2bafdac241c1a6da
       // onTap: Navigator.pushNamed(context, routeName),
       child: ListTile(
       title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
