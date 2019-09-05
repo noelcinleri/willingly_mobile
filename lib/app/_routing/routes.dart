@@ -10,3 +10,4 @@ const String userDetailsViewRoute = 'user_details';
 const String profilSettingRoute = 'profilSettings';
 
 const String settingPage = 'settings';
+const String categoryDetails = 'categoryDetail';

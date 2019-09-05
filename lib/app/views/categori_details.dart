@@ -7,16 +7,26 @@ import 'package:flutter/services.dart';
 import 'package:willingly/json.dart';
 
 class CategoryDetails extends StatefulWidget {
-  final String categoriName;
+  final String categoryDetails;
 
-  const CategoryDetails({Key key, this.categoriName}) : super(key: key);
+  const CategoryDetails({Key key, this.categoryDetails}) : super(key: key);
   @override
   _CategoryDetailsState createState() => _CategoryDetailsState();
 }
 
 class _CategoryDetailsState extends State<CategoryDetails> {
   final _formKey = GlobalKey<FormState>();
-
+  String title;
+  int id;
+  @override
+  void initState() { 
+    title = widget.categoryDetails.split('##')[0];
+    for (var i = 0; i < widget.categoryDetails.split('##').length; i++) {
+      print('split$i => ${widget.categoryDetails.split('##')[i]}');
+    }
+    // id = int.parse(widget.categoryDetails.split('##')[1]);
+    super.initState();
+  }
   TextEditingController mailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   String mailErrorText;
@@ -27,21 +37,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: primaryColor),
     );
-    Widget pageTitle = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          widget.categoriName,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontSize: 45.0,
-          ),
-        ),
-      ],
-    );
 
-    
   Widget appBar = Material(
       elevation: 5.0,
       shadowColor: Colors.grey,
@@ -55,7 +51,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
               icon: Icon(Icons.arrow_back),
             ),
             Text(
-          widget.categoriName,
+          title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,

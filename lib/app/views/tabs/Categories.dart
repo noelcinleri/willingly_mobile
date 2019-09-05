@@ -3,6 +3,8 @@ import 'package:animated_stream_list/animated_stream_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:willingly/app/_routing/routes.dart';
+import 'package:willingly/app/utils/loading.dart';
 import 'package:willingly/app/utils/sessionId.dart';
 import 'package:willingly/app/utils/utils.dart';
 import 'package:willingly/json.dart';
@@ -14,7 +16,8 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
-  List cards = List.generate(0, (e)=>BuildIconTile);
+  bool listIsLoad = false;
+  List<Widget> cards = List();
   // Stream<List<Widget>> cards = Stream<List<Widget>>();
   @override
   void initState() {
@@ -38,6 +41,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
             title: e[i].name.toString(),
           ));
         }
+        setState(() {
+         listIsLoad = true; 
+        });
       });
     });
     super.initState();
@@ -65,7 +71,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               height: 80,
               child: searchField,
             ),
-            ListView(shrinkWrap: true, children: cards),
+            listIsLoad ==false ? loadingPage():ListView(shrinkWrap: true, children: cards),
           ],
         ),
       ),
@@ -105,14 +111,16 @@ class BuildIconTile extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String title;
-
-  const BuildIconTile({Key key, this.icon, this.color, this.title})
+  final int id;
+  
+  const BuildIconTile({Key key, this.icon, this.color, this.title,this.id})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: Navigator.pushNamed(context, routeName),
+      
+      onTap:()=> Navigator.pushNamed(context, categoryDetails,arguments:(title+"##"+id.toString())),
       child: ListTile(
         title: Text(
           title,
