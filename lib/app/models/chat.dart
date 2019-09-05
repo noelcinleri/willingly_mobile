@@ -6,47 +6,38 @@ import 'dart:convert';
 
 import 'package:willingly/json.dart';
 
-Future<Post> fetchPost() async {
-  var http;
-  final response =
-      //Buraya kendi php ni ekliyecez
-      await http.get('https://willingly.tk/inc/php/Get_ChatList.php', headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'*/*'});
 
+class ChatRoom {
+
+  final String id;
+  final int reciverId;
+  final String userName;
+  final String userImage;
+  final String unreadCount;
+  final String message;
+  ChatRoom({this.id, this.reciverId,this.userName,this.userImage,this.unreadCount,this.message});
+
+  factory ChatRoom.fromJson(Map<String, dynamic> json) {
+    return ChatRoom(
+      id: json['Id'] as String,
+      reciverId: json['reciverId'] as int,
+      userName: json['userName'] as String,
+      userImage: json['userImage'] as String,
+      unreadCount: json['unreadCount'] as String,
+      message: json['message'] as String,
+    );
+  }
+}
+Future<List<Category>> fetchCategory() async {
+  final response =
+      await http.get('https://willingly.tk/inc/php/Get_FilterConfig.php');
   if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON.
-    return Post.fromJson(json.decode(response.body));
+    return   parseCategory(response.body);
   } else {
-    // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
   }
 }
-
-class Chat {
-  int id, userId, unreadCount;
-  String userName, userImage;
-  String message;
-
-  Chat({this.id, this.userId, this.userName, this.userImage, this.unreadCount, this.message});
-
-  factory Chat.fromJson(Map<String, dynamic> json) {
-    return Chat(
-      userId: json['userId'],
-      id: json['id'],
-      userName: json['userName'],
-      userImage: json['userImage'],
-      unreadCount: json['unreadCount'],
-      message: json['message'],
-    );
-  }
-   Map toMap() {
-    var map = new Map<String, dynamic>();
-    map['id'] = SessionId.id;
-    return map;
-  }
-  //Chat(this.id, this.userId, this.userName, this.userImage, this.unreadCount, this.message);
-}
-
-List<Chat> chats = [
+List<ChatRoom> chats = [
   //Yukardaki Seyleri buraya listele sonra chats.dart da goster
-  Chat(),
+  ChatRoom(),
 ];

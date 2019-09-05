@@ -6,12 +6,19 @@ import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:willingly/app/utils/utils.dart';
 
-class ChatsPage extends StatelessWidget {
+class ChatsPage extends StatefulWidget {
+  ChatsPage({Key key}) : super(key: key);
+
+  _ChatsPageState createState() => _ChatsPageState();
+}
+
+class _ChatsPageState extends State<ChatsPage> {
+  
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    final pageTitle = Padding(
+    Widget pageTitle = Padding(
       padding: EdgeInsets.only(top: 1.0, bottom: 20.0),
       child: Text(
         "Mesajlar",
@@ -23,18 +30,18 @@ class ChatsPage extends StatelessWidget {
       ),
     );
 
-    final noConversationImage = Image.asset(
+    Widget noConversationImage = Image.asset(
       AvailableImages.emptyState['assetPath'],
     );
 
-    final noConversationHeader = Container(
+    Widget noConversationHeader = Container(
       padding: EdgeInsets.only(top: 30.0, bottom: 10.0),
       child: Text(
         "Burası bayağı yanlız",
         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24.0),
       ),
     );
-    final noConversationText = Text(
+    Widget noConversationText = Text(
       "Şu anda okunacak bir mesajın yok.",
       style: TextStyle(
         fontWeight: FontWeight.w600,
@@ -44,7 +51,7 @@ class ChatsPage extends StatelessWidget {
       textAlign: TextAlign.center,
     );
 
-    final searchBar = Container(
+    Widget searchBar = Container(
       padding: EdgeInsets.only(left: 20.0, right: 20.0),
       height: 50.0,
       width: deviceWidth,
@@ -101,7 +108,7 @@ class ChatsPage extends StatelessWidget {
     //   ),
     // );
 
-    final chatList = Container(
+    Widget chatList = Container(
       height: 500.0,
       child: ListView(
         children: chats.map((chat) => _buildChatTile(chat, context)).toList(),
@@ -122,7 +129,7 @@ class ChatsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
-                    searchBar,
+                    //searchBar,
                     // onlineUsers,
                     //chatList,
                     noConversationImage,
@@ -142,7 +149,7 @@ class ChatsPage extends StatelessWidget {
   Widget _buildUserCard(User user, BuildContext context) {
     final firstName = user.name.split(" ")[0];
 
-    final onlineTag = Positioned(
+    Widget onlineTag = Positioned(
       bottom: 10.0,
       right: 3.0,
       child: Container(
@@ -186,7 +193,7 @@ class ChatsPage extends StatelessWidget {
   }
 
   Widget _buildChatTile(Chat chat, BuildContext context) {
-    final unreadCount = Positioned(
+    Widget unreadCount = Positioned(
       bottom: 9.0,
       right: 0.0,
       child: Container(
@@ -206,7 +213,7 @@ class ChatsPage extends StatelessWidget {
       ),
     );
 
-    final userImage = InkWell(
+    Widget userImage = InkWell(
       onTap: () {
         Navigator.pushNamed(
           context,
@@ -236,7 +243,7 @@ class ChatsPage extends StatelessWidget {
       ),
     );
 
-    final userNameMessage = Expanded(
+    Widget userNameMessage = Expanded(
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(
