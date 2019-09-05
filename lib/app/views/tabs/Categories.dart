@@ -1,8 +1,9 @@
 import 'dart:math';
-
+import 'package:animated_stream_list/animated_stream_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:willingly/app/utils/sessionId.dart';
 import 'package:willingly/app/utils/utils.dart';
 import 'package:willingly/json.dart';
 
@@ -13,8 +14,8 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
-  // List cards = List.generate(0, (e)=>BuildIconTile);
-  List<Widget> cards = new List();
+  List cards = List.generate(0, (e)=>BuildIconTile);
+  // Stream<List<Widget>> cards = Stream<List<Widget>>();
   @override
   void initState() {
     fetchCategory().then((e) {
@@ -28,10 +29,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
       Random rnd = new Random();
       num rndNumber = 0;
       setState(() {
-        for (var i = 0; i < cards.length; i++) {
+        for (var i = 0; i < e.length; i++) {
+          print('22');
           rndNumber = rnd.nextInt(colors.length);
-          cards.add(BuildIconTile(color: colors[rndNumber],icon: Icons.transform,title: e[i].name.toString(),));
-        } 
+          cards.add(BuildIconTile(
+            color: colors[rndNumber],
+            icon: Icons.transform,
+            title: e[i].name.toString(),
+          ));
+        }
       });
     });
     super.initState();
@@ -59,10 +65,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               height: 80,
               child: searchField,
             ),
-            ListView(
-              shrinkWrap: true,
-              children: cards
-            )
+            ListView(shrinkWrap: true, children: cards),
           ],
         ),
       ),

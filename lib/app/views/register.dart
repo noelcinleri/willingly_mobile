@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:willingly/app/utils/loading.dart';
 import 'package:willingly/app/views/login.dart';
 import 'package:willingly/json.dart';
 
@@ -362,28 +363,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
     } else {
-      return Center(
-        child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,),
-            child: new BackdropFilter(
-              filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-              child: new Container(
-                decoration:
-                    new BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                child: Center(
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/loading.gif'),
-                            fit: BoxFit.contain)),
-                  ),
-                ),
-              ),
-            )),
-      );
+      return loadingPage();
     }
   }
 

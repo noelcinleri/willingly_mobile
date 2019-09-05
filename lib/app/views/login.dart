@@ -5,7 +5,11 @@ import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter/services.dart';
+import 'package:willingly/app/utils/sessionId.dart';
+import 'package:willingly/app/utils/shared.dart';
 import 'package:willingly/json.dart';
+
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -160,6 +164,8 @@ class _LoginPageState extends State<LoginPage> {
               if(e.status){
                 setState(() {
                  showToast('Giriş Yapılıyor ...');
+                 SharedData.setDataTypeString(SessionId.sharedId, e.session);
+                 SessionId.id = e.session;
                  Navigator.of(context).pushNamedAndRemoveUntil(homeViewRoute,(Route<dynamic> route) => false);
                 });
               }

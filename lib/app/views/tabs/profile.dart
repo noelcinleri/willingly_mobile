@@ -5,6 +5,8 @@ import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:willingly/app/utils/sessionId.dart';
+import 'package:willingly/app/utils/shared.dart';
 
 class ProfilePage extends StatelessWidget {
   final User user = users[0];
@@ -189,7 +191,9 @@ class ProfilePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(10.0)),
                       onPressed: () {
-                        print('Çıkış yap Tuşuna Tıklandı');
+                        SharedData.deleteData(SessionId.sharedId).then((e){
+                          Navigator.of(context).pushNamedAndRemoveUntil(landingViewRoute,(Route<dynamic> route) => false);
+                        });
                       },
                       color: Colors.red,
                       padding: EdgeInsets.all(4),

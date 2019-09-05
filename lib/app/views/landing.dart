@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/utils/colors.dart';
+import 'package:willingly/app/utils/loading.dart';
+import 'package:willingly/app/utils/sessionId.dart';
 import 'package:willingly/app/utils/utils.dart';
 import 'package:flutter/services.dart';
 
@@ -11,6 +14,31 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  bool hasId;
+  Future loadData() async {
+    final kayitAraci = await SharedPreferences.getInstance();
+    bool _id = kayitAraci.containsKey(SessionId.sharedId);
+    return _id;
+  }
+
+  @override
+  void initState() {
+    loadData().then((e) {
+      setState(() {
+        print('e => $e');
+        if (e == null) {
+          hasId = false;
+        } else {
+          hasId = e;
+        }
+        if(hasId){
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            homeViewRoute, (Route<dynamic> route) => false);
+        }
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +47,7 @@ class _LandingPageState extends State<LandingPage> {
       SystemUiOverlayStyle(statusBarColor: primaryColor),
     );
 
-    final logo = Container(
+    Widget logo = Container(
       height: 120.0,
       width: 120.0,
       decoration: BoxDecoration(
@@ -30,7 +58,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
     );
 
-    final appName = Column(
+    Widget appName = Column(
       children: <Widget>[
         Text(
           AppConfig.appName,
@@ -41,16 +69,16 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width*2/3,
+          width: MediaQuery.of(context).size.width * 2 / 3,
           padding: EdgeInsets.all(3),
           child: Text(
-          AppConfig.appTagline,textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500
+            AppConfig.appTagline,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w500),
           ),
-        ),
         )
       ],
     );
@@ -59,10 +87,9 @@ class _LandingPageState extends State<LandingPage> {
       height: 60.0,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7.0),
-        border: Border.all(color: Colors.white),
-        color: Colors.transparent
-      ),
+          borderRadius: BorderRadius.circular(7.0),
+          border: Border.all(color: Colors.white),
+          color: Colors.transparent),
       child: RaisedButton(
         // elevation: 5.0,
         onPressed: () => Navigator.pushNamed(context, loginViewRoute),
@@ -103,7 +130,7 @@ class _LandingPageState extends State<LandingPage> {
     //   ),
     // );
 
-    final registerBtn = Container(
+    Widget registerBtn = Container(
       height: 60.0,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -128,7 +155,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
     );
 
-    final buttons = Padding(
+    Widget buttons = Padding(
       padding: EdgeInsets.only(
         top: 80.0,
         bottom: 30.0,
@@ -140,23 +167,31 @@ class _LandingPageState extends State<LandingPage> {
       ),
     );
 
-    return Scaffold(
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 65.0),
-              decoration: BoxDecoration(gradient: primaryGradient),
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[logo, appName, buttons],
-              ),
+    if (hasId == null) {
+      return loadingPage();
+    } else {
+      if (hasId) {
+        
+        return Container(color: Colors.white,child: Container(width: 100,),);
+      } else {
+        return Scaffold(
+          body: Container(
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(top: 65.0),
+                  decoration: BoxDecoration(gradient: primaryGradient),
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: <Widget>[logo, appName, buttons],
+                  ),
+                ),
+              ],
             ),
-            
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+      }
+    }
   }
 }
