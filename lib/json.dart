@@ -69,17 +69,6 @@ class Post {
     return map;
   }
 }
-Future createPost({Map body}) async {
-
-  String url='https://willingly.tk/inc/php/Insert_CreateNewUser.php';
-  return http.post(url, headers:{'Content-Type':'application/x-www-form-urlencoded'},body: body).then((http.Response response) {
-    final int statusCode = response.statusCode;
-    if (statusCode < 200 || statusCode > 400 || json == null) {
-      throw new Exception("Error while fetching data");
-    }
-    return Post.fromJson(json.decode(response.body));
-  });
-}
 Future postDeneme(Map _body) async {
   print("body : "+_body.toString());
   String url='https://willingly.tk/inc/php/Insert_CreateNewUser.php';
@@ -93,7 +82,7 @@ Future postDeneme(Map _body) async {
   });
 }
 
-
+//KATEGOR İŞLEMLERİ
 class Category {
   final String id;
   final String name;
@@ -124,4 +113,50 @@ Future<List<Category>> fetchCategory() async {
   } else {
     throw Exception('Failed to load post');
   }
+}
+class CategoryPost {
+  final String name;
+  final String surname;
+  final String username;
+  final int userId;
+  final String email;
+  final String password;
+  final bool statu;
+  final int id;
+
+  final int pageId;
+  final String searchKey;
+  final int categoryId;
+  final String price;
+  CategoryPost({this.name, this.surname, this.username, this.email, this.password, this.statu, this.id,this.userId,this.pageId,this.categoryId,this.price,this.searchKey});
+ 
+  factory CategoryPost.fromJson(Map<String, dynamic> json) {
+    return CategoryPost(
+      statu: json['PageId'],
+      id: json['searchKey'],
+      id: json['category'],
+      id: json['price'],
+    );
+  }
+ 
+  Map toMap() {
+    var map = new Map<String, dynamic>();
+    map['PageId'] = name;
+    map['searchKey'] = surname;
+    map['category'] = username;
+    map['price'] = email;
+    return map;
+  }
+}
+Future categoryPost(Map _body) async {
+  print("body : "+_body.toString());
+  String url='https://willingly.tk/inc/php/Get_FreelanceAdvertisement.php';
+  return http.post(url, headers:{'Content-Type':'application/x-www-form-urlencoded','SessionId':SessionId.id},body: _body ).then((http.Response response) {
+
+    final int statusCode = response.statusCode;
+    if (statusCode < 200 || statusCode > 400 || json == null) {
+      throw new Exception("Error while fetching data");
+    }
+    return Post.fromJson(json.decode(response.body));
+  });
 }

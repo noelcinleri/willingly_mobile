@@ -21,9 +21,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   @override
   void initState() { 
     title = widget.categoryDetails.split('##')[0];
-    for (var i = 0; i < widget.categoryDetails.split('##').length; i++) {
-      print('split$i => ${widget.categoryDetails.split('##')[i]}');
-    }
+    id = int.parse(widget.categoryDetails.split('##')[1]);
     // id = int.parse(widget.categoryDetails.split('##')[1]);
     super.initState();
   }
@@ -80,7 +78,5 @@ class _CategoryDetailsState extends State<CategoryDetails> {
         ),
       ),
     );
-    
-    
   }
 }

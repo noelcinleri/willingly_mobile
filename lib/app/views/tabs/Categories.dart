@@ -33,12 +33,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
       num rndNumber = 0;
       setState(() {
         for (var i = 0; i < e.length; i++) {
-          print('22');
           rndNumber = rnd.nextInt(colors.length);
           cards.add(BuildIconTile(
             color: colors[rndNumber],
             icon: Icons.transform,
             title: e[i].name.toString(),
+            id: e[i].id,
           ));
         }
         setState(() {
@@ -111,7 +111,7 @@ class BuildIconTile extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String title;
-  final int id;
+  final String id;
   
   const BuildIconTile({Key key, this.icon, this.color, this.title,this.id})
       : super(key: key);
@@ -120,7 +120,7 @@ class BuildIconTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       
-      onTap:()=> Navigator.pushNamed(context, categoryDetails,arguments:(title+"##"+id.toString())),
+      onTap:()=> Navigator.pushNamed(context, categoryDetails,arguments:(title+"##"+id)),
       child: ListTile(
         title: Text(
           title,
