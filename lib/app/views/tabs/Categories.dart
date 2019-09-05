@@ -28,7 +28,7 @@ class CategoriesPage extends StatelessWidget {
               height: 80,
               child: pageTitle,
             ),
-            hr,_buildIconTile(Icons.gamepad, Colors.blue, 'Kategori1'),hr,
+            hr,_buildIconTile(Icons.gamepad, Colors.blue, 'Kategori'),hr,
           ],
         ),
       ),
@@ -36,14 +36,9 @@ class CategoriesPage extends StatelessWidget {
   }
 
   Widget _buildIconTile(IconData icon, Color color, String title) {
-<<<<<<< HEAD
-    
-    return ListTile(
-=======
     return GestureDetector(
       // onTap: Navigator.pushNamed(context, routeName),
       child: ListTile(
->>>>>>> 89f201ae3ded3a294230db50e01a0c4ecede4657
       title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
       leading: Container(
         height: 30.0,
