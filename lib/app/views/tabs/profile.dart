@@ -114,8 +114,7 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               _buildIconTile(LineIcons.user, Colors.red, 'Profilim',
-                  () => { Navigator.pushNamed(context, userDetailsViewRoute,
-            arguments: 1),}),
+                  () => { Navigator.pushNamed(context, userDetailsViewRoute),}),
               hr,
               _buildIconTile(LineIcons.edit, Colors.purpleAccent,
                   'Profil Ayarları', () => {Navigator.pushNamed(context, profilSettingRoute)}),

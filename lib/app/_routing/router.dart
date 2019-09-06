@@ -45,7 +45,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case chatDetailsViewRoute:
       return MaterialPageRoute(builder: (context) => ChatDetailsPage(userId: settings.arguments));
     case userDetailsViewRoute:
-      return MaterialPageRoute(builder: (context) => UserDetailsPage(userId: settings.arguments));
+      return MaterialPageRoute(builder: (context) => UserDetailsPage());
       break;
     default:
       return MaterialPageRoute(builder: (context) => LandingPage());
