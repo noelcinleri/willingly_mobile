@@ -114,49 +114,65 @@ Future<List<Category>> fetchCategory() async {
     throw Exception('Failed to load post');
   }
 }
-class CategoryPost {
-  final String name;
-  final String surname;
-  final String username;
+class CategoryPost{
+  final String id , categoryIdGet;
   final int userId;
-  final String email;
-  final String password;
-  final bool statu;
-  final int id;
+  final String title , explanation,price,donationPrice,advertisementRate,advertisementSkills;
 
-  final int pageId;
-  final String searchKey;
-  final int categoryId;
-  final String price;
-  CategoryPost({this.name, this.surname, this.username, this.email, this.password, this.statu, this.id,this.userId,this.pageId,this.categoryId,this.price,this.searchKey});
- 
-  factory CategoryPost.fromJson(Map<String, dynamic> json) {
+  CategoryPost({this.id, this.categoryIdGet, this.userId, this.title, this.explanation, this.price, this.donationPrice, this.advertisementRate, this.advertisementSkills,});
+
+  factory CategoryPost.fromJson(Map<String, dynamic> parsedJson) {
     return CategoryPost(
-      statu: json['PageId'],
-      id: json['searchKey'],
-      id: json['category'],
-      id: json['price'],
+      id: parsedJson['Id'],
+      userId: parsedJson['UserId'],
+      title: parsedJson['Tittle'],
+      explanation: parsedJson['Explanation'],
+      price: parsedJson['Price'],
+      donationPrice: parsedJson['DonationPrice'],
+      advertisementRate: parsedJson['AdvertisementRate'],
+      advertisementSkills: parsedJson['AdvertisementSkills'],
+      categoryIdGet: parsedJson['CatagoryId'],
+    );
+  }
+}
+class CategoryPostList {
+
+  //Alınacak
+  List<CategoryPost> list;
+  
+
+  //Basılacak
+  final String pageId;
+  final String categoryId;
+  CategoryPostList({this.list,this.pageId,this.categoryId});
+ 
+  factory CategoryPostList.fromJson(Map<String, dynamic> json) {
+    var list = json['Data'] as List;
+    print(list.runtimeType);
+    List<CategoryPost> imagesList = list.map((i) => CategoryPost.fromJson(i)).toList();
+
+    return CategoryPostList(
+      list: imagesList,
     );
   }
  
   Map toMap() {
-    var map = new Map<String, dynamic>();
-    map['PageId'] = name;
-    map['searchKey'] = surname;
-    map['category'] = username;
-    map['price'] = email;
+    var map = new Map<dynamic, dynamic>();
+    map['PageId'] = pageId;
+    map['category'] = categoryId;
+    map['searchtip'] = '1';
     return map;
   }
 }
 Future categoryPost(Map _body) async {
   print("body : "+_body.toString());
   String url='https://willingly.tk/inc/php/Get_FreelanceAdvertisement.php';
-  return http.post(url, headers:{'Content-Type':'application/x-www-form-urlencoded','SessionId':SessionId.id},body: _body ).then((http.Response response) {
+  return http.post(url, headers:{'Content-Type':'application/x-www-form-urlencoded'},body:_body ).then((http.Response response) {
 
     final int statusCode = response.statusCode;
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
     }
-    return Post.fromJson(json.decode(response.body));
+    return CategoryPostList.fromJson(json.decode(response.body));
   });
 }

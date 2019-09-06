@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/settings.dart';
 import 'package:willingly/app/views/categori_details.dart';
+import 'package:willingly/app/views/categoryDetailsView.dart';
 import 'package:willingly/app/views/chat_details.dart';
 import 'package:willingly/app/views/home.dart';
 import 'package:willingly/app/views/landing.dart';
@@ -19,6 +20,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ProfileSettingsPage());
     case categoryDetails:
       return MaterialPageRoute(builder: (context) => CategoryDetails(categoryDetails: settings.arguments,));
+    case categoryDetailsView:
+      return MaterialPageRoute(builder: (context) => CategoryDetailsView(categoryDetails: settings.arguments,));
     case homeViewRoute:
       return MaterialPageRoute(builder: (context) => HomePage());
     case loginViewRoute:

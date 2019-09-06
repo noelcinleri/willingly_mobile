@@ -11,3 +11,4 @@ const String profilSettingRoute = 'profilSettings';
 
 const String settingPage = 'settings';
 const String categoryDetails = 'categoryDetail';
+const String categoryDetailsView = 'categoryDetailView';
