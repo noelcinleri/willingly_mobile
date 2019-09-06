@@ -117,11 +117,11 @@ class ProfilePage extends StatelessWidget {
                   () => { Navigator.pushNamed(context, userDetailsViewRoute,
             arguments: 1),}),
               hr,
+              _buildIconTile(LineIcons.edit, Colors.purpleAccent,
+                  'Profil Ayarları', () => {Navigator.pushNamed(context, profilSettingRoute)}),
+              hr,
               _buildIconTile(LineIcons.shopping_cart, Colors.green,
                   'Aldıklarım', () => {}),
-              hr,
-              _buildIconTile(LineIcons.star, Colors.purpleAccent,
-                  'Özel İsteklerim', () => {Navigator.pushNamed(context, profilSettingRoute)}),
               hr,
               _buildIconTile(LineIcons.question, Colors.blue, 'Destek', () {
                 _launchURL();
@@ -141,7 +141,7 @@ class ProfilePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         shadowColor: Colors.white,
         child: Container(
-          height: 200.0,
+          height: 128.0,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
@@ -153,9 +153,9 @@ class ProfilePage extends StatelessWidget {
               hr,
               _buildIconTile(
                   LineIcons.briefcase, Colors.blue, 'İş İlanlarım', () => {}),
-              hr,
-              _buildIconTile(LineIcons.clock_o, Colors.orangeAccent,
-                  'Alıcı İstekleri', () => {})
+              // hr,
+              // _buildIconTile(LineIcons.clock_o, Colors.orangeAccent,
+              //     'Alıcı İstekleri', () => {})
             ],
           ),
         ),
@@ -183,6 +183,7 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   secondCard,
+                  Container(padding: new EdgeInsets.all(20.0),child: Align(alignment: Alignment.topLeft, child: Text('Freelancer', style: TextStyle(fontSize: 18),),),),
                   thirdCard,
                   Container(
                     height: 50,
