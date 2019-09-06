@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:willingly/app/_routing/routes.dart';
+import 'package:willingly/app/models/user.dart' as us;
 import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
@@ -13,7 +14,7 @@ class ProfileSettingsPage extends StatefulWidget {
   @override
   _ProfileSettingsPageState createState() => _ProfileSettingsPageState();
 }
-final User user = users[0];
+final us.User user = users[0];
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController passController = TextEditingController();
