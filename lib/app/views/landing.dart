@@ -15,15 +15,20 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   bool hasId;
-  Future loadData() async {
+  Future hasData() async {
     final kayitAraci = await SharedPreferences.getInstance();
     bool _id = kayitAraci.containsKey(SessionId.sharedId);
+    return _id;
+  }
+  Future loadData() async {
+    final kayitAraci = await SharedPreferences.getInstance();
+    String _id = kayitAraci.get(SessionId.sharedId);
     return _id;
   }
 
   @override
   void initState() {
-    loadData().then((e) {
+    hasData().then((e) {
       setState(() {
         print('e => $e');
         if (e == null) {
@@ -32,8 +37,12 @@ class _LandingPageState extends State<LandingPage> {
           hasId = e;
         }
         if(hasId){
-          Navigator.of(context).pushNamedAndRemoveUntil(
+          loadData().then((_id){
+            SessionId.id = _id;
+            Navigator.of(context).pushNamedAndRemoveUntil(
             homeViewRoute, (Route<dynamic> route) => false);
+          });
+          
         }
       });
     });

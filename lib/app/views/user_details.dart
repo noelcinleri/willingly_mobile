@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:willingly/app/models/user.dart';
+import 'package:willingly/app/models/chat.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:willingly/app/utils/loading.dart';
+import 'package:willingly/json.dart';
 
 class UserDetailsPage extends StatefulWidget {
-  final int userId;
-
-  const UserDetailsPage({Key key, this.userId}) : super(key: key);
-  // UserDetailsPage({Key key}) : super(key: key);
   _UserDetailsPageState createState() => _UserDetailsPageState();
 }
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
-  
-  static int userId ;
+  List<Widget> skilsWidget = new List();
+  User user;
+  bool isLoad = false;
+  @override
+  void initState() {
+    returnUser().then((_user) {
+      setState(() {
+      user = _user.user;
+      if(user.skills != null){
+          List<String> skils = user.skills.toString().split(',');
+        for (var i = 0; i < skils.length; i++) {
+          skilsWidget.add(_buildHobbiesCards(skils[i]));
+        }
+      }
+      
+        isLoad = true;
+      });
+      
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    userId = widget.userId;
-    final User user = users.singleWhere((user) => user.id == userId);
-
     // final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
@@ -46,13 +60,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     Widget userImage = Stack(
       children: <Widget>[
         Hero(
-          tag: user.photo,
+          tag: user.username,
           child: Container(
             height: 350.0,
             width: deviceWidth,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(user.photo),
+                image: user.imageUrl == null ? AssetImage('assets/images/blank-profile-picture.png'):NetworkImage(user.imageUrl),
                 fit: BoxFit.cover,
               ),
             ),
@@ -67,9 +81,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         child: Row(
           children: <Widget>[
             Text(
-              user.name,
+              user.name + ' ' + user.surname,
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -79,7 +93,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 3.0),
               height: 30.0,
-              width: 60.0,
+              width: 80.0,
               decoration: BoxDecoration(
                   gradient: chatBubbleGradient,
                   borderRadius: BorderRadius.circular(30.0)),
@@ -88,7 +102,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Icon(
-                      LineIcons.star,
+                      LineIcons.star_o,
                       color: Colors.white,
                     ),
                     Text(
@@ -109,7 +123,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     Widget userLocation = Container(
       padding: EdgeInsets.only(left: 20.0, right: 20.0),
       child: Text(
-        user.location,
+        user.username,
         style: TextStyle(
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
@@ -150,7 +164,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                 height: 2.0,
               ),
               Text(
-                user.about.toString(),
+                user.about.toString() == null ? 'Freelancer Tarafından Daha Girilmedi':user.about.toString(),
                 style: TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.w600,
@@ -194,31 +208,32 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               SizedBox(
                 height: 2.0,
               ),
-              Wrap(
-                children: userHobbies
-                    .map((hobby) => _buildHobbiesCards(hobby))
-                    .toList(),
-              )
+              Wrap(children: skilsWidget)
             ],
           ),
         ),
       ),
     );
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            userImage,
-            userName,
-            userLocation,
-            aboutUser,
-            hobbies
-          ],
+    if (isLoad && user != null && user.username != null) {
+      return Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              userImage,
+              userName,
+              userLocation,
+              aboutUser,
+              hobbies
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
+    else{
+      return loadingPage();
+    }
   }
 
   Widget _buildHobbiesCards(String name) {

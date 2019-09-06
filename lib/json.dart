@@ -1,13 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:willingly/app/utils/sessionId.dart';
 
-Future<LoginJson> fetchPost(mail,pass) async {
-  var response =
-      await http.get('https://willingly.tk/inc/php/logincheck.php?email=$mail&password=$pass', headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'*/*'});
+Future<LoginJson> fetchPost(mail, pass) async {
+  var response = await http.get(
+      'https://willingly.tk/inc/php/logincheck.php?email=$mail&password=$pass',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': '*/*'
+      });
   if (response.statusCode == 200) {
     return LoginJson.fromJson(json.decode(response.body));
   } else {
@@ -15,16 +20,17 @@ Future<LoginJson> fetchPost(mail,pass) async {
   }
 }
 
-Future<LoginJson> returnLogin(mail,pass){
-  return fetchPost(mail, pass).then((e){
+Future<LoginJson> returnLogin(mail, pass) {
+  return fetchPost(mail, pass).then((e) {
     return e;
   });
 }
+
 class LoginJson {
   bool status;
   String session;
 
-  LoginJson({this.status,this.session});
+  LoginJson({this.status, this.session});
 
   factory LoginJson.fromJson(Map<String, dynamic> json) {
     return LoginJson(
@@ -34,12 +40,12 @@ class LoginJson {
   }
 }
 
-
 class LoginCheck {
   Future<LoginJson> post;
 
-  LoginCheck({Key key,@required this.post});
+  LoginCheck({Key key, @required this.post});
 }
+
 //Name,Surname,UserName,Email,Password
 class Post {
   final String name;
@@ -49,15 +55,22 @@ class Post {
   final String password;
   bool statu;
   String id;
-  Post({this.name, this.surname, this.username, this.email, this.password, this.statu, this.id});
- 
+  Post(
+      {this.name,
+      this.surname,
+      this.username,
+      this.email,
+      this.password,
+      this.statu,
+      this.id});
+
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       statu: json['Status'],
       id: json['SessionId'],
     );
   }
- 
+
   Map toMap() {
     var map = new Map<String, dynamic>();
     map['Name'] = name;
@@ -68,11 +81,15 @@ class Post {
     return map;
   }
 }
-Future postDeneme(Map _body) async {
-  print("body : "+_body.toString());
-  String url='https://willingly.tk/inc/php/Insert_CreateNewUser.php';
-  return http.post(url, headers:{'Content-Type':'application/x-www-form-urlencoded'},body: _body ).then((http.Response response) {
 
+Future postDeneme(Map _body) async {
+  print("body : " + _body.toString());
+  String url = 'https://willingly.tk/inc/php/Insert_CreateNewUser.php';
+  return http
+      .post(url,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: _body)
+      .then((http.Response response) {
     final int statusCode = response.statusCode;
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
@@ -87,7 +104,7 @@ class Category {
   final String name;
   final String desc;
   final bool status;
-  Category({this.id, this.name,this.status,this.desc});
+  Category({this.id, this.name, this.status, this.desc});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
@@ -98,8 +115,10 @@ class Category {
     );
   }
 }
+
 List<Category> parseCategory(String responseBody) {
-  final parsed = json.decode(responseBody)['Catagory'].cast<Map<String, dynamic>>();
+  final parsed =
+      json.decode(responseBody)['Catagory'].cast<Map<String, dynamic>>();
 
   return parsed.map<Category>((json) => Category.fromJson(json)).toList();
 }
@@ -108,17 +127,33 @@ Future<List<Category>> fetchCategory() async {
   final response =
       await http.get('https://willingly.tk/inc/php/Get_FilterConfig.php');
   if (response.statusCode == 200) {
-    return   parseCategory(response.body);
+    return parseCategory(response.body);
   } else {
     throw Exception('Failed to load post');
   }
 }
-class CategoryPost{
-  final String id , categoryIdGet;
-  final int userId;
-  final String title , explanation,price,donationPrice,advertisementRate,advertisementSkills;
 
-  CategoryPost({this.id, this.categoryIdGet, this.userId, this.title, this.explanation, this.price, this.donationPrice, this.advertisementRate, this.advertisementSkills,});
+class CategoryPost {
+  final String id, categoryIdGet;
+  final int userId;
+  final String title,
+      explanation,
+      price,
+      donationPrice,
+      advertisementRate,
+      advertisementSkills;
+
+  CategoryPost({
+    this.id,
+    this.categoryIdGet,
+    this.userId,
+    this.title,
+    this.explanation,
+    this.price,
+    this.donationPrice,
+    this.advertisementRate,
+    this.advertisementSkills,
+  });
 
   factory CategoryPost.fromJson(Map<String, dynamic> parsedJson) {
     return CategoryPost(
@@ -134,27 +169,26 @@ class CategoryPost{
     );
   }
 }
-class CategoryPostList {
 
+class CategoryPostList {
   //Alınacak
   List<CategoryPost> list;
-  
 
   //Basılacak
   final String pageId;
   final String categoryId;
-  CategoryPostList({this.list,this.pageId,this.categoryId});
- 
+  CategoryPostList({this.list, this.pageId, this.categoryId});
+
   factory CategoryPostList.fromJson(Map<String, dynamic> json) {
     var list = json['Data'] as List;
-    print(list.runtimeType);
-    List<CategoryPost> imagesList = list.map((i) => CategoryPost.fromJson(i)).toList();
+    List<CategoryPost> imagesList =
+        list.map((i) => CategoryPost.fromJson(i)).toList();
 
     return CategoryPostList(
       list: imagesList,
     );
   }
- 
+
   Map toMap() {
     var map = new Map<dynamic, dynamic>();
     map['PageId'] = pageId;
@@ -163,11 +197,15 @@ class CategoryPostList {
     return map;
   }
 }
-Future categoryPost(Map _body) async {
-  print("body : "+_body.toString());
-  String url='https://willingly.tk/inc/php/Get_FreelanceAdvertisement.php';
-  return http.post(url, headers:{'Content-Type':'application/x-www-form-urlencoded'},body:_body ).then((http.Response response) {
 
+Future categoryPost(Map _body) async {
+  print("body : " + _body.toString());
+  String url = 'https://willingly.tk/inc/php/Get_FreelanceAdvertisement.php';
+  return http
+      .post(url,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: _body)
+      .then((http.Response response) {
     final int statusCode = response.statusCode;
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
@@ -176,31 +214,90 @@ Future categoryPost(Map _body) async {
   });
 }
 
-Future<LoginJson> fetchUser() async {
-  var response =
-      await http.get('https://willingly.tk/inc/php/', headers:{'Content-Type':'application/x-www-form-urlencoded','SessionId':'${SessionId.id}'});
-  if (response.statusCode == 200) {
-    return LoginJson.fromJson(json.decode(response.body));
-  } else {
+//
+//USER
+//
+Future<UserData> fetchUser() async {
+  
+  Map<String, String> headers = {
+    HttpHeaders.contentTypeHeader: "application/json", // or whatever
+    HttpHeaders.cookieHeader: "PHPSESSID=${SessionId.id}",
+    HttpHeaders.acceptHeader : "*/*"
+  };
+
+  print('SessionID => ${SessionId.id}');
+  var response = await http.get(
+      'https://willingly.tk/inc/php/Get_UserInformation.php',
+      headers: headers);
+  if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
     throw Exception('Failed to load post');
+  } else {
+    return UserData.fromJson(json.decode(response.body));
   }
 }
 
-Future<LoginJson> returnUser(mail,pass){
-  return fetchPost(mail, pass).then((e){
+Future returnUser() {
+  return fetchUser().then((e) {
     return e;
   });
 }
-class User {
-  bool status;
-  String session;
 
-  User({this.status,this.session});
+class User {
+  final String name, surname;
+  final String mail, id;
+  int age, phone;
+  final String adress, about, skills;
+  final String password, imageUrl, username;
+  final bool emailVerification;
+  final bool phoneVerification;
+
+  User(
+      {this.name,
+      this.surname,
+      this.mail,
+      this.id,
+      this.age,
+      this.phone,
+      this.adress,
+      this.about,
+      this.skills,
+      this.password,
+      this.imageUrl,
+      this.username,
+      this.emailVerification,
+      this.phoneVerification});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      status: json['Status'],
-      session: json['SessionID'],
+      id: json['id'],
+      name: json['Name'],
+      surname: json['Surname'],
+      age: json['Age'],
+      mail: json['Email'],
+      phone: json['Phone'],
+      adress: json['Adress'],
+      about: json['About'],
+      skills: json['Skills'],
+      password: json['Password'],
+      emailVerification: json['EmailVerification'],
+      phoneVerification: json['PhoneVerification'],
+      username: json['Username'],
+    );
+  }
+}
+
+class UserData {
+  //Alınacak
+  User user;
+  UserData({
+    this.user,
+  });
+
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    var list = json['Data']as List;
+    var Userlist = list.map((i) => User.fromJson(i)).toList();
+    return UserData(
+      user: Userlist[0],
     );
   }
 }
