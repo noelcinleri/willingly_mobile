@@ -316,7 +316,6 @@ class BuildIconTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double heightDiv = 310.0;
-    User user = users[3];
     Widget userImage = Container(
       height: 95.0,
       width: 95.0,

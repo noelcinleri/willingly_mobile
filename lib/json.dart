@@ -13,7 +13,6 @@ Future<LoginJson> fetchPost(mail,pass) async {
   } else {
     throw Exception('Failed to load post');
   }
-
 }
 
 Future<LoginJson> returnLogin(mail,pass){
@@ -175,4 +174,33 @@ Future categoryPost(Map _body) async {
     }
     return CategoryPostList.fromJson(json.decode(response.body));
   });
+}
+
+Future<LoginJson> fetchUser() async {
+  var response =
+      await http.get('https://willingly.tk/inc/php/', headers:{'Content-Type':'application/x-www-form-urlencoded','SessionId':'${SessionId.id}'});
+  if (response.statusCode == 200) {
+    return LoginJson.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load post');
+  }
+}
+
+Future<LoginJson> returnUser(mail,pass){
+  return fetchPost(mail, pass).then((e){
+    return e;
+  });
+}
+class User {
+  bool status;
+  String session;
+
+  User({this.status,this.session});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      status: json['Status'],
+      session: json['SessionID'],
+    );
+  }
 }
