@@ -245,7 +245,8 @@ Future returnUser() {
 class User {
   final String name, surname;
   final String mail, id;
-  int age, phone;
+  final int age, phone;
+  final double rate;
   final String adress, about, skills;
   final String password, imageUrl, username;
   final bool emailVerification;
@@ -257,6 +258,7 @@ class User {
       this.mail,
       this.id,
       this.age,
+      this.rate,
       this.phone,
       this.adress,
       this.about,
@@ -282,6 +284,7 @@ class User {
       emailVerification: json['EmailVerification'],
       phoneVerification: json['PhoneVerification'],
       username: json['Username'],
+      rate: json['Rate'],
     );
   }
 }

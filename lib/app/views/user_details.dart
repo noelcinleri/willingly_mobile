@@ -36,6 +36,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+      return loadingPage();
+    };
     // final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
@@ -106,7 +109,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       color: Colors.white,
                     ),
                     Text(
-                      user.age.toString(),
+                      user.rate == null ? '?':user.rate.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -164,7 +167,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                 height: 2.0,
               ),
               Text(
-                user.about.toString() == null ? 'Freelancer Tarafından Daha Girilmedi':user.about.toString(),
+                user.about == null ? 'Freelancer Tarafından Daha Girilmedi':user.about.toString(),
                 style: TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.w600,

@@ -43,7 +43,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case resetPasswordViewRoute:
       return MaterialPageRoute(builder: (context) => ResetPasswordPage());
     case chatDetailsViewRoute:
-      return MaterialPageRoute(builder: (context) => ChatDetailsPage(userId: settings.arguments));
+      return MaterialPageRoute(builder: (context) => ChatDetailsPage());
     case userDetailsViewRoute:
       return MaterialPageRoute(builder: (context) => UserDetailsPage());
       break;

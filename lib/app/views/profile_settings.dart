@@ -136,7 +136,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       width: 200.0,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(user.photo),
+          image: AssetImage(''),
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,

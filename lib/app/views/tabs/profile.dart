@@ -9,7 +9,6 @@ import 'package:willingly/app/utils/sessionId.dart';
 import 'package:willingly/app/utils/shared.dart';
 
 class ProfilePage extends StatelessWidget {
-  final User user = users[0];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class ProfilePage extends StatelessWidget {
       width: 100.0,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(user.photo),
+          image: User.imageUrl == null ? AssetImage('assets/images/blank-profile-picture.png'):NetworkImage(User.imageUrl),
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,
@@ -46,14 +45,14 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            user.name,
+            User.name + ' ' + User.surname,
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
             ),
           ),
           Text(
-            user.location,
+            User.username,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
               fontSize: 20.0,

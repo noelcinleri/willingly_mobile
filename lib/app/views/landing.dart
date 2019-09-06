@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:willingly/app/_routing/routes.dart';
+import 'package:willingly/app/models/user.dart' as us;
 import 'package:willingly/app/utils/colors.dart';
 import 'package:willingly/app/utils/loading.dart';
 import 'package:willingly/app/utils/sessionId.dart';
 import 'package:willingly/app/utils/utils.dart';
 import 'package:flutter/services.dart';
+import 'package:willingly/json.dart';
 
 class LandingPage extends StatefulWidget {
   LandingPage({Key key}) : super(key: key);
@@ -39,6 +41,26 @@ class _LandingPageState extends State<LandingPage> {
         if(hasId){
           loadData().then((_id){
             SessionId.id = _id;
+            returnUser().then((i){
+              print('i => $i');
+              User a =i.user; 
+              us.User.about = a.about;
+              us.User.adress = a.adress;
+              us.User.age = a.age;
+              us.User.emailVerification = a.emailVerification;
+              us.User.id = a.id;
+              us.User.imageUrl = a.imageUrl;
+              us.User.mail = a.mail;
+              us.User.name = a.name;
+              us.User.password = a.password;
+              us.User.phone = a.phone;
+              us.User.phoneVerification = a.phoneVerification;
+              us.User.rate = a.rate;
+              us.User.skills = a.skills;
+              us.User.surname = a.surname;
+              us.User.username = a.username;
+              
+            });
             Navigator.of(context).pushNamedAndRemoveUntil(
             homeViewRoute, (Route<dynamic> route) => false);
           });

@@ -6,27 +6,24 @@ import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/widgets/chat_bubble.dart';
 
 class ChatDetailsPage extends StatelessWidget {
-  final int userId;
-  const ChatDetailsPage({Key key, this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final User user = users.singleWhere((user) => user.id == userId);
 
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
     final userImage = InkWell(
-      onTap: () => Navigator.pushNamed(context, userDetailsViewRoute, arguments: user.id),
+      onTap: () => Navigator.pushNamed(context, userDetailsViewRoute),
       child: Hero(
-        tag: user.photo,
+        tag: '',
         child: Container(
           margin: EdgeInsets.only(right: 8.0, bottom: 10.0),
           height: 50.0,
           width: 50.0,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(user.photo),
+              image: AssetImage(''),
               fit: BoxFit.cover,
             ),
             shape: BoxShape.circle,
@@ -36,9 +33,9 @@ class ChatDetailsPage extends StatelessWidget {
     );
 
     final userName = Hero(
-      tag: user.name,
+      tag: 'user.name',
       child: Text(
-        user.name,
+        'abduss',
         style: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
