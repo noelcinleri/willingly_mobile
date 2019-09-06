@@ -38,8 +38,9 @@ class ProfilePage extends StatelessWidget {
         shape: BoxShape.circle,
       ),
     );
-
+    
     final userNameLocation = Container(
+      padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0,bottom: 8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
