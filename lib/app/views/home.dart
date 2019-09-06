@@ -16,7 +16,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget>  _pages = [
     FeedsPage(),
     CategoriesPage(),
-    // ChatsPage(),
+    CategoriesPage(),
+    //ChatsPage(),
     ProfilePage()
   ];
 

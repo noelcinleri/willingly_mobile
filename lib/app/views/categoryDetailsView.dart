@@ -68,22 +68,34 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
       ],
     );
 
+    // Widget userName = Container(
+    //   padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+    //   child: Row(
+    //     children: <Widget>[
+    //       Text(
+    //         thisPost.title.toString(),
+    //         style: TextStyle(
+    //           fontSize: 25.0,
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //       ),
+    //       SizedBox(
+    //         width: 20.0,
+    //       ),
+    //     ],
+    //   )
+    // );
+
     Widget userName = Container(
-        padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-        child: Row(
-          children: <Widget>[
-            Text(
-              'Abdussamet ',
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              width: 20.0,
-            ),
-          ],
-        ));
+      padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0,bottom: 8.0),
+      child: Text(
+        thisPost.title.toString(),
+        style: TextStyle(
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
 
     Widget userLocation = Container(
       padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -250,7 +262,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
           children: <Widget>[
             userImage,
             userName,
-            userLocation,
+            //userLocation,
             priceAndRate,
             aboutUser,
             hobbies,

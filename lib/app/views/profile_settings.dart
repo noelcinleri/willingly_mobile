@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:willingly/app/_routing/routes.dart';
-import 'package:willingly/app/models/user.dart' as us;
 import 'package:willingly/app/models/user.dart';
+import 'package:willingly/app/models/user.dart' as us;
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter/services.dart';
@@ -13,10 +13,21 @@ import 'package:line_icons/line_icons.dart';
 class ProfileSettingsPage extends StatefulWidget {
   @override
   _ProfileSettingsPageState createState() => _ProfileSettingsPageState();
+  
 }
+
 final us.User user = users[0];
+
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
+  
   final _formKey = GlobalKey<FormState>();
+  int _userPlatformRadioBtnVal = -1;
+
+  void _handleUserPlatformChange(int value) {
+    setState(() {
+      _userPlatformRadioBtnVal = value;
+    });
+  }
   TextEditingController passController = TextEditingController();
   String passErrorText;
   TextEditingController mailController = TextEditingController();
@@ -183,6 +194,25 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       height: 30.0,
     );
 
+    Widget gender = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Radio(
+            value: 0,
+            groupValue: _userPlatformRadioBtnVal,
+            onChanged: _handleUserPlatformChange,
+          ),
+          Text("Freelancer"),
+          Radio(
+            value: 1,
+            groupValue: _userPlatformRadioBtnVal,
+            onChanged: _handleUserPlatformChange,
+          ),
+          Text("Gönüllü"),
+        ],
+      ),
+    );
 
     Widget registerForm = Padding(
       padding: EdgeInsets.only(top: 30.0),
@@ -204,6 +234,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 () => mailCheck(),
                 TextInputType.emailAddress),
             formFieldSpacing,
+            //Telefon dogrulama
             // _buildFormField('Telefon Numarası', LineIcons.mobile_phone,phoneController,phoneErrorText,()=>phoneCheck(),TextInputType.phone),
             // formFieldSpacing,
             _buildFormField(
@@ -228,6 +259,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     children: <Widget>[
                       Center(child: userImage,),
                       registerForm,
+                      gender,
                     ],
                   ),
                 ),
