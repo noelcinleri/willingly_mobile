@@ -91,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     bool _notification = true;
     bool _sendfeedback = true;
-      return Scaffold(
+    return Scaffold(
       body: Center(
         child: Container(
           padding: EdgeInsets.only(top: 0.0, left: 0.0, right: 00.0),

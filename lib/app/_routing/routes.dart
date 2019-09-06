@@ -10,5 +10,8 @@ const String userDetailsViewRoute = 'user_details';
 const String profilSettingRoute = 'profilSettings';
 
 const String settingPage = 'settings';
+const String orderPage = 'orders';
+const String salesPage = 'sales';
+const String jobAdsPage = 'jobads';
 const String categoryDetails = 'categoryDetail';
 const String categoryDetailsView = 'categoryDetailView';

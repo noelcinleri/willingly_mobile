@@ -121,7 +121,7 @@ class ProfilePage extends StatelessWidget {
                   'Profil Ayarları', () => {Navigator.pushNamed(context, profilSettingRoute)}),
               hr,
               _buildIconTile(LineIcons.shopping_cart, Colors.green,
-                  'Aldıklarım', () => {}),
+                  'Aldıklarım', () => {Navigator.pushNamed(context, orderPage)}),
               hr,
               _buildIconTile(LineIcons.question, Colors.blue, 'Destek', () {
                 _launchURL();
@@ -149,10 +149,10 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               _buildIconTile(
-                  LineIcons.money, Colors.red, 'Satışlerim', () => {}),
+                  LineIcons.money, Colors.red, 'Satışlerim', () => {Navigator.pushNamed(context, salesPage)}),
               hr,
               _buildIconTile(
-                  LineIcons.briefcase, Colors.blue, 'İş İlanlarım', () => {}),
+                  LineIcons.briefcase, Colors.blue, 'İş İlanlarım', () => {Navigator.pushNamed(context, jobAdsPage)}),
               // hr,
               // _buildIconTile(LineIcons.clock_o, Colors.orangeAccent,
               //     'Alıcı İstekleri', () => {})

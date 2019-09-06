@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:willingly/app/_routing/routes.dart';
+import 'package:willingly/app/_routing/routes.dart' as prefix0;
 import 'package:willingly/app/settings.dart';
 import 'package:willingly/app/views/categori_details.dart';
 import 'package:willingly/app/views/categoryDetailsView.dart';
 import 'package:willingly/app/views/chat_details.dart';
 import 'package:willingly/app/views/home.dart';
+import 'package:willingly/app/views/jobads.dart';
 import 'package:willingly/app/views/landing.dart';
 import 'package:willingly/app/views/login.dart';
+import 'package:willingly/app/views/orders.dart';
 import 'package:willingly/app/views/profile_settings.dart';
 import 'package:willingly/app/views/register.dart';
 import 'package:willingly/app/views/reset_password.dart';
+import 'package:willingly/app/views/sales.dart';
 import 'package:willingly/app/views/user_details.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -30,6 +34,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => RegisterPage());
     case settingPage:
       return MaterialPageRoute(builder: (context) => SettingsPage());
+    case orderPage:
+      return MaterialPageRoute(builder: (context) => OrdersPage());
+    case salesPage:
+      return MaterialPageRoute(builder: (context) => SalesPage());
+    case jobAdsPage:
+      return MaterialPageRoute(builder: (context) => JobAdsPage());
     case resetPasswordViewRoute:
       return MaterialPageRoute(builder: (context) => ResetPasswordPage());
     case chatDetailsViewRoute:
