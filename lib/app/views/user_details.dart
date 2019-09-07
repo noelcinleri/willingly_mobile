@@ -3,6 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:willingly/app/models/chat.dart';
 import 'package:willingly/app/utils/colors.dart';
+import 'package:willingly/app/models/user.dart' as us;
 import 'package:line_icons/line_icons.dart';
 import 'package:willingly/app/utils/loading.dart';
 import 'package:willingly/json.dart';
@@ -15,6 +16,11 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   List<Widget> skilsWidget = new List();
   User user;
   bool isLoad = false;
+  
+  bool _loaded = false;
+  var img = Image.network(us.User.imageUrl);
+  var placeholder = AssetImage('assets/images/blank-profile-picture.png');
+
   @override
   void initState() {
     returnUser().then((_user) {
@@ -29,7 +35,15 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       
         isLoad = true;
       });
-      
+      img.image.resolve(ImageConfiguration()).addListener(ImageStreamListener(
+      (e,b){
+        if(mounted){
+          setState(() {
+           _loaded = true; 
+          });
+        }
+      }
+    ));
     });
     super.initState();
   }
@@ -69,7 +83,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             width: deviceWidth,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: user.imageUrl == null ? AssetImage('assets/images/blank-profile-picture.png'):NetworkImage(user.imageUrl),
+                image: user.imageUrl == null ? placeholder:_loaded == true?img:placeholder,
                 fit: BoxFit.cover,
               ),
             ),

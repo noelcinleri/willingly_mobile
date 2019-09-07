@@ -37,6 +37,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   TextEditingController aboutController = TextEditingController();
   String aboutErrorText;
 
+  bool _loaded = false;
+  var img = Image.network(us.User.imageUrl);
+  var placeholder = AssetImage('assets/images/blank-profile-picture.png');
+
   @override
   void initState() {
     aboutController.text = us.User.about;
@@ -44,6 +48,15 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
     surnameController.text = us.User.surname;
     nameController.text = us.User.name;
     passController.text = us.User.password;
+    img.image.resolve(ImageConfiguration()).addListener(ImageStreamListener(
+      (e,b){
+        if(mounted){
+          setState(() {
+           _loaded = true; 
+          });
+        }
+      }
+    ));  
     super.initState();
   }
 
@@ -144,8 +157,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: us.User.imageUrl == null
-              ? AssetImage('assets/images/blank-profile-picture.png')
-              : NetworkImage(us.User.imageUrl),
+              ? placeholder
+              : _loaded == false ? placeholder : img,
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,

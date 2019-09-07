@@ -92,7 +92,7 @@ class ChatDetailsPage extends StatelessWidget {
       },
     );
 
-    final inputBox = Positioned(
+    Widget inputBox = Positioned(
       bottom: 0,
       left: 0,
       right: 0,

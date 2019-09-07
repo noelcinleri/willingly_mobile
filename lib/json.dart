@@ -303,12 +303,10 @@ class User {
     map['Password'] = password;
     map['Phone'] = '05369778515';
     map['About'] = about;
-    map['PhotoSrc'] = us.User.imageUrl==null ? '':us.User.imageUrl;
     
     return map;
   }
 }
-
 
 class UserData {
   //Alınacak
@@ -325,8 +323,6 @@ class UserData {
     );
   }
 }
-
-
 
 Future userChange(User user) async {
   Map<String, String> headers = { // or whatever
@@ -348,4 +344,64 @@ Future userChange(User user) async {
     }
     return User.fromJson(json.decode(response.body));
   });
+}
+
+//
+//Chat room
+//
+Future<ChatRoomData> fetchChat() async {
+  
+  Map<String, String> headers = {
+    HttpHeaders.contentTypeHeader: "application/json", // or whatever
+    HttpHeaders.cookieHeader: "PHPSESSID=${SessionId.id}",
+    HttpHeaders.acceptHeader : "*/*"
+  };
+
+  print('SessionID => ${SessionId.id}');
+  var response = await http.get(
+      'https://willingly.tk/inc/php/Get_ChatList.php',
+      headers: headers);
+  if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
+    throw Exception('Failed to load post');
+  } else {
+    return ChatRoomData.fromJson(json.decode(response.body));
+  }
+}
+
+Future returnChat() {
+  return fetchUser().then((e) {
+    return e;
+  });
+}
+
+class ChatRoom{
+  final String id,userName,userImage,message,unreadCount;
+  final int reciverId;
+  ChatRoom({this.id, this.reciverId, this.userName, this.userImage, this.message, this.unreadCount});
+
+  factory ChatRoom.fromJson(Map<String, dynamic> json) {
+    return ChatRoom(
+      id: json['Id'],
+      reciverId: json['ReciverId'],
+      userName: json['userName'],
+      userImage: json['userImage'],
+      unreadCount: json['unreadCount'],
+      message: json['message']
+    );
+  }
+}
+
+
+class ChatRoomData {
+
+  List chatRoom;
+  // Map chatRoom;
+  ChatRoomData({this.chatRoom});  
+
+  factory ChatRoomData.fromJson(Map<String, dynamic> json) {
+    var list = json['Data'];
+    return ChatRoomData(
+      chatRoom: list,
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:willingly/app/_routing/routes.dart';
+import 'package:willingly/app/models/user.dart' as us;
 import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
@@ -8,7 +9,30 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:willingly/app/utils/sessionId.dart';
 import 'package:willingly/app/utils/shared.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  ProfilePage({Key key}) : super(key: key);
+
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+ @override
+  void initState() {
+    img.image.resolve(ImageConfiguration()).addListener(ImageStreamListener(
+      (e,b){
+        if(mounted){
+          setState(() {
+           _loaded = true; 
+          });
+        }
+      }
+    ));  
+    super.initState();
+  }
+
+  bool _loaded = false;
+  var img = Image.network(us.User.imageUrl);
+  var placeholder = AssetImage('assets/images/blank-profile-picture.png');
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +56,7 @@ class ProfilePage extends StatelessWidget {
       width: 100.0,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: User.imageUrl == null ? AssetImage('assets/images/blank-profile-picture.png'):NetworkImage(User.imageUrl),
+          image: User.imageUrl == null ? placeholder:_loaded == true?img:placeholder,
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,

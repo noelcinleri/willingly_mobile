@@ -8,7 +8,7 @@ static int age;
 static String phone;
 static double rate;
 static String adress, about, skills;
-static String password, imageUrl, username;
+static String password, imageUrl='assets/images/blank-profile-picture.png', username;
 static bool emailVerification;
 static bool phoneVerification;
 }
