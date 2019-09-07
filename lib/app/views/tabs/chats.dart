@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:willingly/app/models/chat.dart' as ch;
 import 'package:willingly/app/utils/colors.dart';
+import 'package:willingly/app/utils/loading.dart';
 import 'package:willingly/json.dart';
 
 
@@ -13,11 +15,27 @@ class ChatsPage extends StatefulWidget {
 
 class _ChatsPageState extends State<ChatsPage> {
   
-  List chats;
+  List<ChatRoom> chats;
+  List<Widget> chatList = new List();
+  bool isLoad = false;
+
   @override
   void initState() { 
+    
     fetchChat().then((e){
-      print('chatroom => ${e.chatRoom[0].toString()}');
+      for (var i = 0; i < e.chatRoom.toList().length; i++) {
+        // print('$i => ${e.chatRoom[i]}');
+         try {
+           chatList.add(_buildChatTile(ChatRoom.fromJson(e.chatRoom[i]), context));
+         } catch (e) {
+           print('-----------');
+           print('[ERROR] => $e');
+           print('-----------');
+         }
+      }
+      setState(() {
+       isLoad =true; 
+      });
     });
     super.initState();
   }
@@ -65,12 +83,15 @@ class _ChatsPageState extends State<ChatsPage> {
 
     Widget chatList = Container(
       height: 500.0,
-      // child: ListView(
-      //   children: chats.map((chat) => _buildChatTile(chat, context)).toList(),
-      // ),
+      child: ListView(
+        children: <Widget>[
+
+        ],
+      ),
     );
 
-    return Scaffold(
+    if(!isLoad){
+      return Scaffold(
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(top: 40.0),
@@ -94,6 +115,10 @@ class _ChatsPageState extends State<ChatsPage> {
         ),
       ),
     );
+    }
+    else{
+      return loadingPage();
+    }
   }
 
   

@@ -386,7 +386,7 @@ class ChatRoom{
       userName: json['userName'],
       userImage: json['userImage'],
       unreadCount: json['unreadCount'],
-      message: json['message']
+      message: json['message'] == null ? ' ' :json['message']
     );
   }
 }
