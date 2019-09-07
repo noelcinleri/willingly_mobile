@@ -3,17 +3,27 @@ import 'package:flutter/widgets.dart';
 import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/models/message.dart';
 import 'package:willingly/app/models/user.dart';
+import 'package:willingly/app/utils/arguments.dart';
 import 'package:willingly/app/widgets/chat_bubble.dart';
+import 'package:willingly/json.dart';
 
-class ChatDetailsPage extends StatelessWidget {
+class ChatDetailsPage extends StatefulWidget {
 
+  _ChatDetailsPageState createState() => _ChatDetailsPageState();
+}
+
+class _ChatDetailsPageState extends State<ChatDetailsPage> {
+  
+  List<Messages> messages = List();
   @override
   Widget build(BuildContext context) {
-
+    messages = ChatDetailArguments.messages;
+    print('messages lenght=> ${messages.length}');
+    print('messages => $messages');
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    final userImage = InkWell(
+    Widget userImage = InkWell(
       onTap: () => Navigator.pushNamed(context, userDetailsViewRoute),
       child: Hero(
         tag: '',
@@ -23,7 +33,7 @@ class ChatDetailsPage extends StatelessWidget {
           width: 50.0,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(''),
+              image: AssetImage('assets/images/blank-profile-picture.png'),
               fit: BoxFit.cover,
             ),
             shape: BoxShape.circle,
@@ -32,10 +42,10 @@ class ChatDetailsPage extends StatelessWidget {
       ),
     );
 
-    final userName = Hero(
+    Widget userName = Hero(
       tag: 'user.name',
       child: Text(
-        'abduss',
+        ChatDetailArguments.chatRoom.userName,
         style: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
@@ -43,7 +53,7 @@ class ChatDetailsPage extends StatelessWidget {
       ),
     );
 
-    final appBar = Material(
+    Widget appBar = Material(
       elevation: 5.0,
       shadowColor: Colors.grey,
       child: Container(
@@ -62,7 +72,7 @@ class ChatDetailsPage extends StatelessWidget {
       ),
     );
 
-    final textInput = Container(
+    Widget textInput = Container(
       padding: EdgeInsets.only(left: 10.0),
       height: 47.0,
       width: deviceWidth * 0.7,
@@ -82,12 +92,14 @@ class ChatDetailsPage extends StatelessWidget {
       ),
     );
 
-    final messageList = ListView.builder(
+    Widget messageList = ListView.builder(
+      shrinkWrap:true,
       scrollDirection: Axis.vertical,
       itemCount: messages.length,
       itemBuilder: (BuildContext context, int index) {
         return ChatBubble(
           message: messages[index],
+          reciverId: ChatDetailArguments.chatRoom.reciverId,
         );
       },
     );
@@ -139,9 +151,7 @@ class ChatDetailsPage extends StatelessWidget {
                 SizedBox(
                   height: 10.0,
                 ),
-                Flexible(
-                  child: messageList,
-                ),
+                messageList
               ],
             ),
           ),

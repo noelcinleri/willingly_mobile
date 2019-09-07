@@ -404,3 +404,67 @@ class ChatRoomData {
     );
   }
 }
+//
+//Chat room
+//
+Future<MessagesData> postChat(int id) async {
+  Map<String, String> headers = {
+    HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded", // or whatever
+    HttpHeaders.cookieHeader: "PHPSESSID=${SessionId.id}",
+    HttpHeaders.acceptHeader : "*/*"
+  };
+  String url = 'https://willingly.tk/inc/php/Get_ChatMessages.php';
+  return http
+      .post(url,
+          headers: headers,
+          body: {'ChatRoomID':'$id'})
+      .then((http.Response response) {
+    final int statusCode = response.statusCode;
+    if (statusCode < 200 || statusCode > 400 || json == null) {
+      throw new Exception("Error while fetching data");
+    }
+    return MessagesData.fromJson(json.decode(response.body));
+  });
+}
+
+class MessagesData{
+  List messages;
+  // Map chatRoom;
+  MessagesData({this.messages});  
+
+  factory MessagesData.fromJson(Map<String, dynamic> json) {
+    var list = json['Data'];
+    return MessagesData(
+      messages: list,
+    );
+  }
+}
+
+class Messages{
+
+  
+  final String id,text;
+  final int sender,reciver,chatId;
+  final bool isRead;
+
+  Messages({this.id, this.text, this.sender, this.reciver, this.chatId, this.isRead});
+  factory Messages.fromJson(Map<String, dynamic> json) {
+    return Messages(
+      id: json['Id'],
+      sender: json['Sender'],
+      reciver: json['Reciver'],
+      text: json['Text'],
+      isRead: json['IsRead'],
+      chatId: json['ChatID'],
+    );
+  }
+  /*
+  "Id": "1",
+      "Sender": 65,
+      "Reciver": 21,
+      "Text": "Senin AMK",
+      "IsRead": false,
+      "ChatID": 0
+      
+       */
+}

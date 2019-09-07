@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:willingly/app/models/message.dart';
 import 'package:willingly/app/utils/colors.dart';
+import 'package:willingly/json.dart';
 
-class ChatBubble extends StatelessWidget {
-  final Message message;
+class ChatBubble extends StatefulWidget {
+  final Messages message;
+  final int reciverId;
+  const ChatBubble({Key key, this.message,this.reciverId}) : super(key: key);
 
-  const ChatBubble({Key key, this.message}) : super(key: key);
+  _ChatBubbleState createState() => _ChatBubbleState();
+}
+
+class _ChatBubbleState extends State<ChatBubble> {
+  
+  Messages message;
   @override
   Widget build(BuildContext context) {
-    final messageBody = message.body;
-    final fromMe = message.fromMe;
+    
+    message = widget.message;
+    dynamic messageBody = message.text;
+    dynamic fromMe = message.sender==widget.reciverId ? false:true;
+    print('message : ${message.sender} - reciver : ${widget.reciverId}');
     return Align(
       alignment: fromMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(

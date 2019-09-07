@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:willingly/app/_routing/routes.dart';
 import 'package:willingly/app/models/chat.dart' as ch;
+import 'package:willingly/app/utils/arguments.dart';
 import 'package:willingly/app/utils/colors.dart';
 import 'package:willingly/app/utils/loading.dart';
+import 'package:willingly/app/views/chat_details.dart';
 import 'package:willingly/json.dart';
 
 
@@ -16,6 +19,7 @@ class ChatsPage extends StatefulWidget {
 class _ChatsPageState extends State<ChatsPage> {
   
   List<ChatRoom> chats = List();
+  List<Messages> messages = List();
   List<Widget> chatWidgetList = new List<Widget>();
   bool isLoad = false;
   bool _loaded = false;
@@ -29,18 +33,33 @@ class _ChatsPageState extends State<ChatsPage> {
         chats.add(ChatRoom.fromJson(e.chatRoom[i]));
          try {
            chatWidgetList.add(_buildChatTile(chats[i]));
-          
          } catch (e) {
            print('-----------');
            print('[ERROR] => $e');
          }
       }
+
+      
       setState(() {
        isLoad =true; 
       });
     });
     super.initState();
   }
+  getMessages(ChatRoom room){
+    postChat(int.parse(room.id)).then((a){
+        for (var i = 0; i < a.messages.length; i++) {
+          messages.add(Messages.fromJson(a.messages[i]));
+        }
+        for (var i = 0; i < messages.length; i++) {
+          print('Mesaj $i text *=> ${messages[i].text}');
+        }
+        ChatDetailArguments.chatRoom = room;
+        ChatDetailArguments.messages = messages;
+        Navigator.pushNamed(context, chatDetailsViewRoute);
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -145,17 +164,12 @@ class _ChatsPageState extends State<ChatsPage> {
     );
 
     Widget userImage = InkWell(
+      
       onTap: () {
-        // Navigator.pushNamed(
-        //   context,
-        //   userDetailsViewRoute,
-        //   arguments: chat,
-        // );
       },
       child: Stack(
         children: <Widget>[
-          Hero(
-            tag: 'bak',
+          Container(
             child: Container(
               margin: EdgeInsets.only(right: 8.0, bottom: 10.0),
               height: 70.0,
@@ -175,8 +189,11 @@ class _ChatsPageState extends State<ChatsPage> {
     );
 
     Widget userNameMessage = Expanded(
+      
       child: InkWell(
         onTap: () {
+          getMessages(chatRoom);
+          
         },
         child: Container(
           padding: EdgeInsets.only(
@@ -185,8 +202,7 @@ class _ChatsPageState extends State<ChatsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Hero(
-                tag: 'tag',
+              Container(
                 child: Text(
                   chatRoom.userName,
                   style: TextStyle(

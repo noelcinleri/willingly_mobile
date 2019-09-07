@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:willingly/app/app.dart';
 import 'package:flutter/material.dart';
+import 'package:willingly/app/views/chat_details.dart';
 
 void main() => runApp(MyApp());
 
