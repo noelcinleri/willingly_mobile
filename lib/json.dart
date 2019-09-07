@@ -290,8 +290,6 @@ class User {
       imageUrl: json['PhotoSrc'],
       rate: json['Rate'],
     );
-
-
   }
   Map toMap() {
     // int phoneNum =  as BigInt;

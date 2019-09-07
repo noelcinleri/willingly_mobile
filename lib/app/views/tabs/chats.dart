@@ -15,22 +15,24 @@ class ChatsPage extends StatefulWidget {
 
 class _ChatsPageState extends State<ChatsPage> {
   
-  List<ChatRoom> chats;
-  List<Widget> chatList = new List();
+  List<ChatRoom> chats = List();
+  List<Widget> chatWidgetList = new List<Widget>();
   bool isLoad = false;
-
+  bool _loaded = false;
+  var placeholder = AssetImage('assets/images/blank-profile-picture.png');
   @override
   void initState() { 
     
     fetchChat().then((e){
       for (var i = 0; i < e.chatRoom.toList().length; i++) {
         // print('$i => ${e.chatRoom[i]}');
+        chats.add(ChatRoom.fromJson(e.chatRoom[i]));
          try {
-           chatList.add(_buildChatTile(ChatRoom.fromJson(e.chatRoom[i]), context));
+           chatWidgetList.add(_buildChatTile(chats[i]));
+          
          } catch (e) {
            print('-----------');
            print('[ERROR] => $e');
-           print('-----------');
          }
       }
       setState(() {
@@ -84,13 +86,11 @@ class _ChatsPageState extends State<ChatsPage> {
     Widget chatList = Container(
       height: 500.0,
       child: ListView(
-        children: <Widget>[
-
-        ],
+        children: chatWidgetList,
       ),
     );
 
-    if(!isLoad){
+    if(isLoad){
       return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -123,8 +123,8 @@ class _ChatsPageState extends State<ChatsPage> {
 
   
 
-  Widget _buildChatTile(ChatRoom chatRoom, BuildContext context) {
-    final unreadCount = Positioned(
+  Widget _buildChatTile(ChatRoom chatRoom) {
+    Widget unreadCount = Positioned(
       bottom: 9.0,
       right: 0.0,
       child: Container(
@@ -144,7 +144,7 @@ class _ChatsPageState extends State<ChatsPage> {
       ),
     );
 
-    final userImage = InkWell(
+    Widget userImage = InkWell(
       onTap: () {
         // Navigator.pushNamed(
         //   context,
@@ -162,7 +162,7 @@ class _ChatsPageState extends State<ChatsPage> {
               width: 70.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(chatRoom.userImage),
+                  image: AssetImage('assets/images/blank-profile-picture.png'),
                   fit: BoxFit.cover,
                 ),
                 shape: BoxShape.circle,
@@ -174,7 +174,7 @@ class _ChatsPageState extends State<ChatsPage> {
       ),
     );
 
-    final userNameMessage = Expanded(
+    Widget userNameMessage = Expanded(
       child: InkWell(
         onTap: () {
         },
