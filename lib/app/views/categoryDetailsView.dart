@@ -157,7 +157,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                     color: Colors.white,
                   ),
                   Text(
-                    thisPost.price.toString(),
+                    thisPost.price.toString() ,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

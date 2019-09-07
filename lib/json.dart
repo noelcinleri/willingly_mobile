@@ -196,6 +196,7 @@ class CategoryPostList {
     map['PageId'] = pageId;
     map['category'] = categoryId;
     map['searchtip'] = '1';
+    map['Mobile'] = 'true';
     return map;
   }
 }

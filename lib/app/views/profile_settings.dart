@@ -38,7 +38,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   String aboutErrorText;
 
   bool _loaded = false;
-  var img = Image.network(us.User.imageUrl);
+  var imgChecker = Image.network(us.User.imageUrl);
+  var img = NetworkImage(us.User.imageUrl);
   var placeholder = AssetImage('assets/images/blank-profile-picture.png');
 
   @override
@@ -48,7 +49,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
     surnameController.text = us.User.surname;
     nameController.text = us.User.name;
     passController.text = us.User.password;
-    img.image.resolve(ImageConfiguration()).addListener(ImageStreamListener(
+    imgChecker.image.resolve(ImageConfiguration()).addListener(ImageStreamListener(
       (e,b){
         if(mounted){
           setState(() {

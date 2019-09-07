@@ -18,7 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
  @override
   void initState() {
-    img.image.resolve(ImageConfiguration()).addListener(ImageStreamListener(
+    imgChecker.image.resolve(ImageConfiguration()).addListener(ImageStreamListener(
       (e,b){
         if(mounted){
           setState(() {
@@ -31,7 +31,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool _loaded = false;
-  var img = Image.network(us.User.imageUrl);
+  var imgChecker = Image.network(us.User.imageUrl);
+  var img = NetworkImage(us.User.imageUrl);
   var placeholder = AssetImage('assets/images/blank-profile-picture.png');
 
   @override
