@@ -29,6 +29,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
         Colors.orangeAccent,
         Colors.green,
         Colors.cyan,
+        Colors.deepPurpleAccent
       ];
       Random rnd = new Random();
       num rndNumber = 0;

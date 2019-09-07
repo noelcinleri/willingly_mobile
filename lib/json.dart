@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:willingly/app/utils/sessionId.dart';
+import 'package:willingly/app/models/user.dart' as us;
 
 Future<LoginJson> fetchPost(mail, pass) async {
   var response = await http.get(
@@ -168,6 +169,7 @@ class CategoryPost {
       categoryIdGet: parsedJson['CatagoryId'],
     );
   }
+  
 }
 
 class CategoryPostList {
@@ -245,7 +247,8 @@ Future returnUser() {
 class User {
   final String name, surname;
   final String mail, id;
-  final int age, phone;
+  final int age;
+  final String phone;
   final double rate;
   final String adress, about, skills;
   final String password, imageUrl, username;
@@ -284,10 +287,28 @@ class User {
       emailVerification: json['EmailVerification'],
       phoneVerification: json['PhoneVerification'],
       username: json['Username'],
+      imageUrl: json['PhotoSrc'],
       rate: json['Rate'],
     );
+
+
+  }
+  Map toMap() {
+    // int phoneNum =  as BigInt;
+    var map = new Map<dynamic, dynamic>();
+    map['Name'] = name;
+    map['Surname'] = surname;
+    map['Age'] = '17';
+    map['Email'] = mail;
+    map['Password'] = password;
+    map['Phone'] = '05369778515';
+    map['About'] = about;
+    map['PhotoSrc'] = us.User.imageUrl==null ? '':us.User.imageUrl;
+    
+    return map;
   }
 }
+
 
 class UserData {
   //Alınacak
@@ -303,4 +324,28 @@ class UserData {
       user: Userlist[0],
     );
   }
+}
+
+
+
+Future userChange(User user) async {
+  Map<String, String> headers = { // or whatever
+    HttpHeaders.cookieHeader: "PHPSESSID=${SessionId.id}",
+    HttpHeaders.acceptHeader : "*/*"
+  };
+
+  Map _body = user.toMap();
+  print('body => $_body');
+  String url = 'https://willingly.tk/inc/php/Update_UserInformationUpdate.php';
+  return http
+      .post(url,
+          headers: headers,
+          body: _body)
+      .then((http.Response response) {
+    final int statusCode = response.statusCode;
+    if (statusCode < 200 || statusCode > 400 || json == null) {
+      throw new Exception("Error while fetching data");
+    }
+    return User.fromJson(json.decode(response.body));
+  });
 }

@@ -27,7 +27,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
 
-    final userImage = Container(
+    Widget userImage = Container(
       height: 100.0,
       width: 100.0,
       decoration: BoxDecoration(
@@ -39,14 +39,14 @@ class ProfilePage extends StatelessWidget {
       ),
     );
     
-    final userNameLocation = Container(
+    Widget userNameLocation = Container(
       padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0,bottom: 8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            User.name + ' ' + User.surname,
+            User.name + '\n' + User.surname,
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
 
-    final userInfo = Stack(
+    Widget userInfo = Stack(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -99,7 +99,7 @@ class ProfilePage extends StatelessWidget {
       ],
     );
 
-    final secondCard = Padding(
+    Widget secondCard = Padding(
       padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 30.0),
       child: Material(
         elevation: 5.0,
@@ -133,7 +133,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
 
-    final thirdCard = Padding(
+    Widget thirdCard = Padding(
       padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
       child: Material(
         elevation: 5.0,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:willingly/app/_routing/routes.dart';
-import 'package:willingly/app/models/user.dart';
 import 'package:willingly/app/models/user.dart' as us;
 import 'package:willingly/app/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
@@ -13,13 +12,9 @@ import 'package:line_icons/line_icons.dart';
 class ProfileSettingsPage extends StatefulWidget {
   @override
   _ProfileSettingsPageState createState() => _ProfileSettingsPageState();
-  
 }
 
-final us.User user = users[0];
-
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
-  
   final _formKey = GlobalKey<FormState>();
   int _userPlatformRadioBtnVal = -1;
 
@@ -28,6 +23,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       _userPlatformRadioBtnVal = value;
     });
   }
+
   TextEditingController passController = TextEditingController();
   String passErrorText;
   TextEditingController mailController = TextEditingController();
@@ -38,7 +34,18 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   String surnameErrorText;
   TextEditingController phoneController = TextEditingController();
   String phoneErrorText;
+  TextEditingController aboutController = TextEditingController();
+  String aboutErrorText;
 
+  @override
+  void initState() {
+    aboutController.text = us.User.about;
+    mailController.text = us.User.mail;
+    surnameController.text = us.User.surname;
+    nameController.text = us.User.name;
+    passController.text = us.User.password;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,32 +118,34 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       });
     }
 
-  surnameCheck() {
-    setState(() {
-      if (surnameController.text.isEmpty) {
-        surnameErrorText = "Soyad kısmını boş bırakamazsınız";
-      } else {
-        surnameErrorText = null;
-      }
-    });
-  }
+    surnameCheck() {
+      setState(() {
+        if (surnameController.text.isEmpty) {
+          surnameErrorText = "Soyad kısmını boş bırakamazsınız";
+        } else {
+          surnameErrorText = null;
+        }
+      });
+    }
 
-  nameCheck() {
-    setState(() {
-      if (nameController.text.isEmpty) {
-        nameErrorText = "Ad kısmını boş bırakamazsın";
-      } else {
-        nameErrorText = null;
-      }
-    });
-  }
+    nameCheck() {
+      setState(() {
+        if (nameController.text.isEmpty) {
+          nameErrorText = "Ad kısmını boş bırakamazsın";
+        } else {
+          nameErrorText = null;
+        }
+      });
+    }
 
-    final userImage = Container(
+    Widget userImage = Container(
       height: 200.0,
       width: 200.0,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(''),
+          image: us.User.imageUrl == null
+              ? AssetImage('assets/images/blank-profile-picture.png')
+              : NetworkImage(us.User.imageUrl),
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,
@@ -164,7 +173,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       style: TextStyle(color: Colors.white),
       cursorColor: Colors.white,
     );
-  Widget appBar = Material(
+    Widget appBar = Material(
       elevation: 5.0,
       shadowColor: Colors.grey,
       child: Container(
@@ -177,13 +186,13 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
               icon: Icon(Icons.arrow_back),
             ),
             Text(
-          "Kullanıcı Ayarlar",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontSize: 25.0,
-          ),
-        ),
+              "Kullanıcı Ayarlar",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 25.0,
+              ),
+            ),
             Text('       '),
           ],
         ),
@@ -221,10 +230,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
         child: Column(
           children: <Widget>[
             _buildFormField('Adın', LineIcons.user, nameController,
-                nameErrorText, nameCheck()),
+                nameErrorText, nameCheck(), us.User.name),
             formFieldSpacing,
             _buildFormField('Soyadın', LineIcons.user, surnameController,
-                surnameErrorText, () => surnameCheck()),
+                surnameErrorText, () => surnameCheck(), us.User.surname),
             formFieldSpacing,
             _buildFormField(
                 'E-Posta Adresi',
@@ -232,7 +241,11 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 mailController,
                 mailErrorText,
                 () => mailCheck(),
+                us.User.mail,
                 TextInputType.emailAddress),
+            formFieldSpacing,
+            _buildFormField('Hakkında', LineIcons.info, aboutController,
+                aboutErrorText, () => surnameCheck(), us.User.about),
             formFieldSpacing,
             //Telefon dogrulama
             // _buildFormField('Telefon Numarası', LineIcons.mobile_phone,phoneController,phoneErrorText,()=>phoneCheck(),TextInputType.phone),
@@ -240,55 +253,92 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             _buildFormField(
                 'Parola', LineIcons.lock, passController, passErrorText, () {
               passCheck();
-            }),
+            }, us.User.password),
             formFieldSpacing,
           ],
         ),
       ),
     );
     return Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                appBar,
-                Container(
-                  padding: EdgeInsets.only(top:25.0,left: 30.0, right: 30.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Center(child: userImage,),
-                      registerForm,
-                      gender,
-                    ],
-                  ),
-                ),
-                Container(
-                    height: 50,
-                    alignment: Alignment.center,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0)),
-                      onPressed: () {
-                        print('Bilgilerine Düzenle Tuşuna Tıklandı');
-                      },
-                      color: Colors.red,
-                      padding: EdgeInsets.all(4),
-                      child: Text('Bilgilerini Düzenle',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              appBar,
+              Container(
+                padding: EdgeInsets.only(top: 25.0, left: 30.0, right: 30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(
+                      child: userImage,
                     ),
-                  )
-              ],
-            ),
+                    registerForm,
+                  ],
+                ),
+              ),
+              Container(
+                height: 50,
+                alignment: Alignment.center,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(10.0)),
+                  onPressed: () {
+                    userChange(User(
+                            name: nameController.text,
+                            surname: surnameController.text,
+                            mail: mailController.text,
+                            password: passController.text,
+                            about: aboutController.text))
+                        .then((e) {
+                      us.User.name = nameController.text;
+                      us.User.surname = surnameController.text;
+                      us.User.mail = mailController.text;
+                      us.User.password = passController.text;
+                      us.User.about = aboutController.text;
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          // return object of type Dialog
+                          return AlertDialog(
+                            title: new Text("Bilgileriniz Güncellendi"),
+                            content: new Text("Daha Detaylı Değişiklikler Yapmak İstiyorsanız Web Sitemizden Giriş Yapmalısınız"),
+                            actions: <Widget>[
+                              // usually buttons at the bottom of the dialog
+                              new FlatButton(
+                                child: new Text("Tamam"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    });
+                  },
+                  color: Colors.red,
+                  padding: EdgeInsets.all(4),
+                  child: Text('Bilgilerini Düzenle',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+              )
+            ],
           ),
-        ),      
-    ); 
+        ),
+      ),
+    );
   }
+
   //Text Form Builder
-  Widget _buildFormField(String label, IconData icon,
-      TextEditingController _controller, String _errorText, Function complated,
+  Widget _buildFormField(
+      String label,
+      IconData icon,
+      TextEditingController _controller,
+      String _errorText,
+      Function complated,
+      String placeHolder,
       [TextInputType inputType = TextInputType.text]) {
     return TextField(
       onEditingComplete: complated,
@@ -297,6 +347,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       },
       controller: _controller,
       decoration: InputDecoration(
+        hintText: placeHolder,
         errorText: _errorText,
         // errorStyle: TextStyle(color: Colors.white),
         labelText: label,

@@ -4,7 +4,8 @@ import 'package:willingly/app/utils/utils.dart';
 class User {
 static String name, surname;
 static String mail, id;
-static int age, phone;
+static int age;
+static String phone;
 static double rate;
 static String adress, about, skills;
 static String password, imageUrl, username;
