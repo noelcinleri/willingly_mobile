@@ -67,7 +67,7 @@ class _ChatsPageState extends State<ChatsPage> {
     Widget pageTitle = Padding(
       padding: EdgeInsets.only(top: 1.0, bottom: 20.0),
       child: Text(
-        "Chats",
+        "Mesajlar",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,

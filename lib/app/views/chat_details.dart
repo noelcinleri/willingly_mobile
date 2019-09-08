@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:willingly/app/_routing/routes.dart';
@@ -8,15 +10,41 @@ import 'package:willingly/app/widgets/chat_bubble.dart';
 import 'package:willingly/json.dart';
 
 class ChatDetailsPage extends StatefulWidget {
-
   _ChatDetailsPageState createState() => _ChatDetailsPageState();
 }
 
 class _ChatDetailsPageState extends State<ChatDetailsPage> {
-  
+  TextEditingController textmessage = new TextEditingController();
+
+  ScrollController cont ;
   List<Messages> messages = List();
+
+  @override
+  void initState() { 
+    timer();
+    super.initState();
+    
+  }
+  @override
+  void dispose() {
+    messages.clear();
+    super.dispose();
+    //umut yaptı
+  }
+  timer(){
+    Timer.periodic(Duration(seconds: 2), (timer) {
+      postChat(int.parse(ChatDetailArguments.chatRoom.id)).then((a){
+        messages.clear();
+        for (var i = 0; i < a.messages.length; i++) {
+          messages.add(Messages.fromJson(a.messages[i]));
+        }
+        ChatDetailArguments.messages = messages;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    cont = ScrollController();
     messages = ChatDetailArguments.messages;
     print('messages lenght=> ${messages.length}');
     print('messages => $messages');
@@ -81,6 +109,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
         color: Colors.white,
       ),
       child: TextField(
+        controller: textmessage,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Bir mesaj yaz...',
@@ -92,8 +121,11 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
       ),
     );
 
+  
     Widget messageList = ListView.builder(
+      addAutomaticKeepAlives: false,
       shrinkWrap:true,
+      controller: cont,
       scrollDirection: Axis.vertical,
       itemCount: messages.length,
       itemBuilder: (BuildContext context, int index) {
@@ -103,6 +135,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
         );
       },
     );
+
 
     Widget inputBox = Positioned(
       bottom: 0,
@@ -127,7 +160,14 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
             ),
             textInput,
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                if(textmessage.text !=null && textmessage.text.isNotEmpty){
+                  SendMessages message = SendMessages(textmessage.text,ChatDetailArguments.chatRoom.reciverId,int.parse(ChatDetailArguments.chatRoom.id));
+                  postNewMessage(message.toMap());
+                  textmessage.text = null;
+                  textmessage.clear();
+                }
+              },
               icon: Icon(
                 Icons.send,
                 color: Colors.grey,
@@ -143,6 +183,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
       body: Stack(
         children: <Widget>[
           Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
             height: deviceHeight,
             width: deviceWidth,
             child: Column(
@@ -151,7 +192,11 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                 SizedBox(
                   height: 10.0,
                 ),
-                messageList
+                Container(
+                  child :Expanded(
+                    child: messageList,
+                  )
+                )
               ],
             ),
           ),

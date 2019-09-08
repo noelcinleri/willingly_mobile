@@ -442,10 +442,9 @@ class MessagesData{
 
 class Messages{
 
-  
-  final String id,text;
-  final int sender,reciver,chatId;
-  final bool isRead;
+  String id,text;
+  int sender,reciver,chatId;
+  bool isRead;
 
   Messages({this.id, this.text, this.sender, this.reciver, this.chatId, this.isRead});
   factory Messages.fromJson(Map<String, dynamic> json) {
@@ -465,6 +464,42 @@ class Messages{
       "Text": "Senin AMK",
       "IsRead": false,
       "ChatID": 0
-      
        */
+}
+class SendMessages{
+
+  final String text;
+  final int reciver,chatId;
+
+  SendMessages(this.text,  this.reciver, this.chatId, );
+
+
+  Map toMap() {
+    var map = new Map<dynamic, dynamic>();
+    map['Reciver'] = reciver.toString();
+    map['Text'] = text;
+    map['ChatID'] = chatId.toString();
+    
+    return map;
+  }
+}
+Future postNewMessage(Map _body) async {
+  Map<String, String> headers = {
+    HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded", // or whatever
+    HttpHeaders.cookieHeader: "PHPSESSID=${SessionId.id}",
+    HttpHeaders.acceptHeader : "*/*"
+  };
+  print('message body => $_body');
+  String url = 'https://willingly.tk/inc/php/Insert_NewMessage.php';
+  return http
+      .post(url,
+          headers: headers,
+          body: _body)
+      .then((http.Response response) {
+    final int statusCode = response.statusCode;
+    if (statusCode < 200 || statusCode > 400 || json == null) {
+      throw new Exception("Error while fetching data");
+    }
+    return MessagesData.fromJson(json.decode(response.body));
+  });
 }

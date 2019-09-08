@@ -19,7 +19,7 @@ class _ChatBubbleState extends State<ChatBubble> {
     
     message = widget.message;
     dynamic messageBody = message.text;
-    dynamic fromMe = message.sender==widget.reciverId ? false:true;
+    dynamic fromMe = message.sender==widget.reciverId ? true:false;
     print('message : ${message.sender} - reciver : ${widget.reciverId}');
     return Align(
       alignment: fromMe ? Alignment.centerRight : Alignment.centerLeft,

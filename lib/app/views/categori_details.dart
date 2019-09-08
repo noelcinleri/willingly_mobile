@@ -138,8 +138,7 @@ class BuildIconTile extends StatelessWidget {
       },
       child: Card(
           elevation: 3,
-          shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10.0)),
+          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
           child: Padding(
             padding: EdgeInsets.all(5),
             child: Container(
