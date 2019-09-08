@@ -444,7 +444,7 @@ class _FeedsPageState extends State<FeedsPage> {
                         ],
                       ),
                     ),
-                    bottomCards,
+                    // bottomCards,
                   ],
                 ),
               )
